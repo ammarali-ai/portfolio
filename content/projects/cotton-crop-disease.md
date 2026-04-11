@@ -4,11 +4,11 @@ slug: "cotton-crop-disease"
 summary: "CNN-based disease classifier for cotton crops achieving 89% accuracy with augmentation pipeline."
 tags: ["Computer Vision", "AI"]
 tech: ["TensorFlow", "OpenCV", "CNN", "Data Augmentation"]
-github: ""
+github: "https://github.com/ammarali-ai"
 demo: ""
 featured: false
 order: 4
-cover: "/images/projects/cotton-crop.svg"
+cover: ""
 ---
 
 ## Overview

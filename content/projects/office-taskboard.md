@@ -4,11 +4,11 @@ slug: "office-taskboard"
 summary: "Internal task-board that auto-DMs assignees on Discord with full status, comment, and escalation flows."
 tags: ["Automation", "Personal Project"]
 tech: ["n8n", "Webhooks", "Discord API", "JavaScript", "Data Tables"]
-github: ""
+github: "https://github.com/ammarali-ai"
 demo: ""
 featured: true
 order: 1
-cover: "/images/projects/office-taskboard.svg"
+cover: "/images/projects/office-taskboard.png"
 ---
 
 ## Overview

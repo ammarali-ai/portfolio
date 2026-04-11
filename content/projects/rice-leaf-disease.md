@@ -4,11 +4,11 @@ slug: "rice-leaf-disease"
 summary: "CNN model achieving 92% accuracy on 10,000+ rice leaf images for disease classification."
 tags: ["Computer Vision", "AI"]
 tech: ["TensorFlow", "Keras", "OpenCV", "CNN", "Transfer Learning", "SVM", "Random Forest"]
-github: ""
+github: "https://github.com/ammarali-ai"
 demo: ""
 featured: false
 order: 3
-cover: "/images/projects/rice-leaf.svg"
+cover: ""
 ---
 
 ## Overview

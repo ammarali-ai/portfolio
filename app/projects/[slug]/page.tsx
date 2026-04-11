@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
@@ -61,6 +62,19 @@ export default async function ProjectDetailPage({
           </span>
         ))}
       </div>
+
+      {project.cover && (
+        <div className="mt-10 relative aspect-[16/9] overflow-hidden rounded-2xl border border-border bg-bg-subtle">
+          <Image
+            src={project.cover}
+            alt={project.title}
+            fill
+            sizes="(min-width: 1024px) 896px, 100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
+      )}
 
       <div
         className="prose-md mt-12 card"

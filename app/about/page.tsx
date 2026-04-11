@@ -1,4 +1,5 @@
-import { getAboutHtml, getEducation, getConferences, getProfile } from "@/lib/content";
+import { getAboutHtml, getEducation, getConferences, getProfile, getSoftSkills } from "@/lib/content";
+import { SoftSkillsSection } from "@/components/soft-skills-section";
 
 export const metadata = { title: "About" };
 
@@ -7,6 +8,7 @@ export default async function AboutPage() {
   const profile = await getProfile();
   const education = getEducation();
   const conferences = getConferences();
+  const softSkills = getSoftSkills();
 
   return (
     <div className="container-wide py-16 md:py-24">
@@ -26,8 +28,10 @@ export default async function AboutPage() {
               <div><dt className="text-fg-muted">Email</dt><dd>{profile.email}</dd></div>
               <div><dt className="text-fg-muted">Phone</dt><dd>{profile.phone}</dd></div>
               <div><dt className="text-fg-muted">Location</dt><dd>{profile.location}</dd></div>
-              <div><dt className="text-fg-muted">LinkedIn</dt><dd>{profile.linkedin}</dd></div>
-              <div><dt className="text-fg-muted">GitHub</dt><dd>{profile.github}</dd></div>
+              <div><dt className="text-fg-muted">LinkedIn</dt><dd className="truncate">muhammadammarali-ai</dd></div>
+              <div><dt className="text-fg-muted">GitHub</dt><dd>ammarali-ai</dd></div>
+              <div><dt className="text-fg-muted">Instagram</dt><dd>@o_whois_ammar</dd></div>
+              <div><dt className="text-fg-muted">Discord</dt><dd>{profile.socials.discord_username}</dd></div>
             </dl>
           </div>
 
@@ -56,6 +60,17 @@ export default async function AboutPage() {
           </div>
         </aside>
       </div>
+
+      <section className="mt-20">
+        <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">Beyond Code</p>
+        <h2 className="text-3xl md:text-4xl font-bold mt-2">Soft Skills</h2>
+        <p className="mt-3 text-fg-muted max-w-2xl">
+          The human side of engineering — how I work with people, data, and uncertainty.
+        </p>
+        <div className="mt-10">
+          <SoftSkillsSection items={softSkills} />
+        </div>
+      </section>
     </div>
   );
 }

@@ -7,16 +7,36 @@ import remarkHtml from "remark-html";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
+export type Socials = {
+  github: string;
+  linkedin: string;
+  instagram: string;
+  discord_username: string;
+  discord_user_id: string;
+};
+
 export type Profile = {
   name: string;
   role: string;
   title: string;
   phone: string;
   email: string;
-  linkedin: string;
-  github: string;
   location: string;
+  avatar: string;
+  socials: Socials;
   bio: string;
+};
+
+export type BlogPost = {
+  title: string;
+  slug: string;
+  excerpt: string;
+  date: string;
+  tags: string[];
+  authors: string[];
+  sourceTitle: string;
+  sourceUrl: string;
+  bodyHtml: string;
 };
 
 export type ExperienceItem = {
@@ -78,17 +98,62 @@ async function mdToHtml(md: string): Promise<string> {
 
 export async function getProfile(): Promise<Profile> {
   const { data, content } = readMd("profile.md");
+  const s = data.socials ?? {};
   return {
     name: data.name ?? "",
     role: data.role ?? "",
     title: data.title ?? "",
     phone: data.phone ?? "",
     email: data.email ?? "",
-    linkedin: data.linkedin ?? "",
-    github: data.github ?? "",
     location: data.location ?? "",
+    avatar: data.avatar ?? "",
+    socials: {
+      github: s.github ?? "",
+      linkedin: s.linkedin ?? "",
+      instagram: s.instagram ?? "",
+      discord_username: s.discord_username ?? "",
+      discord_user_id: s.discord_user_id ?? "",
+    },
     bio: content.trim(),
   };
+}
+
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  const dir = path.join(CONTENT_DIR, "blog");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
+  const posts = await Promise.all(
+    files.map(async (file) => {
+      const { data, content } = readMd(path.join("blog", file));
+      const bodyHtml = await mdToHtml(content);
+      return {
+        title: data.title ?? "",
+        slug: data.slug ?? file.replace(/\.md$/, ""),
+        excerpt: data.excerpt ?? "",
+        date: data.date ?? "",
+        tags: data.tags ?? [],
+        authors: data.authors ?? [],
+        sourceTitle: data.sourceTitle ?? "",
+        sourceUrl: data.sourceUrl ?? "",
+        bodyHtml,
+      } as BlogPost;
+    }),
+  );
+  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  const all = await getBlogPosts();
+  return all.find((p) => p.slug === slug) ?? null;
+}
+
+export type SoftSkill = { name: string; description: string; icon: string };
+
+export function getSoftSkills(): SoftSkill[] {
+  const file = path.join(CONTENT_DIR, "soft-skills.md");
+  if (!fs.existsSync(file)) return [];
+  const { data } = matter(fs.readFileSync(file, "utf8"));
+  return (data.items ?? []) as SoftSkill[];
 }
 
 export async function getAboutHtml(): Promise<string> {
@@ -196,8 +261,9 @@ Title: ${profile.title}
 Email: ${profile.email}
 Phone: ${profile.phone}
 Location: ${profile.location}
-LinkedIn: ${profile.linkedin}
-GitHub: ${profile.github}
+LinkedIn: ${profile.socials.linkedin}
+GitHub: ${profile.socials.github}
+Instagram: ${profile.socials.instagram}
 
 ## About
 ${profile.bio}

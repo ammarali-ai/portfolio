@@ -4,11 +4,11 @@ slug: "fake-news-detection"
 summary: "Multilingual fake-news classifier using SVM and BERT, achieving 90% accuracy."
 tags: ["NLP", "AI"]
 tech: ["Python", "TensorFlow", "Scikit-learn", "BERT", "SVM", "NLP"]
-github: ""
+github: "https://github.com/ammarali-ai"
 demo: ""
 featured: true
 order: 2
-cover: "/images/projects/fake-news.svg"
+cover: ""
 ---
 
 ## Overview

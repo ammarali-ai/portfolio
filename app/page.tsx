@@ -20,6 +20,7 @@ export default async function HomePage() {
         role={profile.role}
         title={profile.title}
         bio={profile.bio}
+        avatar={profile.avatar}
       />
 
       <SkillsMarquee categories={skills} />
