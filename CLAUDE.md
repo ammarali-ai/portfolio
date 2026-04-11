@@ -26,26 +26,50 @@ A personal portfolio website that showcases Ammar's AI/ML and automation work, a
 ## Folder Map
 ```
 my_portfolio/
-├── app/                 # Next.js App Router
-│   ├── (public)/        # Public pages (home, about, projects, etc.)
-│   ├── admin/           # Password-gated CMS
-│   ├── api/             # Route handlers (contact, chat, admin)
+├── app/                        # Next.js App Router
+│   ├── page.tsx                # Home (hero, now, stats, projects, experience, github, testimonials, cta)
+│   ├── about/                  # About + soft skills
+│   ├── projects/[slug]/        # Project detail with OG image generator
+│   ├── skills/
+│   ├── experience/
+│   ├── certifications/
+│   ├── blog/[slug]/            # Research posts with OG image generator
+│   ├── tools/cv-ranker/        # CV Ranker interactive tool
+│   ├── contact/
+│   ├── resume/
+│   ├── admin/                  # Password-gated CMS
+│   ├── api/                    # chat (streaming), contact, rank-cv, admin routes
+│   ├── not-found.tsx           # Custom animated 404
+│   ├── opengraph-image.tsx     # Root OG
 │   └── layout.tsx
-├── components/          # React components
+├── components/                 # React components (hero, nav, project-card, etc.)
 │   └── admin/
-├── content/             # ← ALL content lives here as markdown
+├── content/                    # ← ALL content lives here as markdown
+│   ├── profile.md              # name, role, socials, avatar
 │   ├── about.md
 │   ├── skills.md
-│   ├── projects.md      # project index
+│   ├── soft-skills.md
 │   ├── experience.md
 │   ├── certifications.md
 │   ├── education.md
 │   ├── conferences.md
-│   └── projects/        # one .md per project case study
-├── lib/                 # content loader, gemini, github, utils
-├── public/              # images, resume PDF, favicon
-└── .env.example
+│   ├── now.md                  # "Currently working on" one-liner
+│   ├── testimonials.md         # LinkedIn recs (auto-hides if empty)
+│   ├── projects/               # one .md per project
+│   └── blog/                   # one .md per research post
+├── lib/                        # content loader, gemini, github API, auth
+└── public/                     # images, resume PDF, favicon
 ```
+
+## Key Features
+- **Streaming chatbot** — /api/chat uses Gemini generateContentStream over SSE
+- **CV Ranker** — /tools/cv-ranker → Gemini-powered ATS match scoring
+- **GitHub graph** — live contribution chart on home (ghchart.rshah.org)
+- **OG images** — auto-generated at root, /blog/[slug], /projects/[slug] via next/og
+- **Custom 404** — /not-found with Framer Motion animation
+- **Admin panel** — password + GitHub API commits for markdown edits
+- **Signature logo** — animated Caveat-font signature component
+- **Token safety** — every AI route has input caps, output caps, and per-IP rate limits
 
 ## How To Update Site Content
 Three options, in order of simplicity:

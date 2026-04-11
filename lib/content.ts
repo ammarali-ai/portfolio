@@ -156,6 +156,30 @@ export function getSoftSkills(): SoftSkill[] {
   return (data.items ?? []) as SoftSkill[];
 }
 
+export type Testimonial = {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+};
+
+export function getTestimonials(): Testimonial[] {
+  const file = path.join(CONTENT_DIR, "testimonials.md");
+  if (!fs.existsSync(file)) return [];
+  const { data } = matter(fs.readFileSync(file, "utf8"));
+  return (data.items ?? []) as Testimonial[];
+}
+
+export function getNow(): { status: string; updated: string } {
+  const file = path.join(CONTENT_DIR, "now.md");
+  if (!fs.existsSync(file)) return { status: "", updated: "" };
+  const { data } = matter(fs.readFileSync(file, "utf8"));
+  return {
+    status: data.status ?? "",
+    updated: data.updated ?? "",
+  };
+}
+
 export async function getAboutHtml(): Promise<string> {
   const { content } = readMd("about.md");
   return mdToHtml(content);

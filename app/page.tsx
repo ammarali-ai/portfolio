@@ -4,12 +4,17 @@ import { Hero } from "@/components/hero";
 import { ProjectCard } from "@/components/project-card";
 import { SkillsMarquee } from "@/components/skills-grid";
 import { StatsCounter, type Stat } from "@/components/stats-counter";
+import { NowSection } from "@/components/now-section";
+import { Testimonials } from "@/components/testimonials";
+import { GitHubGraph } from "@/components/github-graph";
 import {
   getProfile,
   getProjects,
   getSkills,
   getExperience,
   getCertifications,
+  getNow,
+  getTestimonials,
 } from "@/lib/content";
 
 export default async function HomePage() {
@@ -18,6 +23,8 @@ export default async function HomePage() {
   const skills = getSkills();
   const experience = getExperience();
   const certifications = getCertifications();
+  const now = getNow();
+  const testimonials = getTestimonials();
   const featured = projects.filter((p) => p.featured).slice(0, 2);
   const recent = experience.slice(0, 2);
 
@@ -40,7 +47,13 @@ export default async function HomePage() {
 
       <SkillsMarquee categories={skills} />
 
-      <section className="container-wide pt-16">
+      {now.status && (
+        <section className="container-wide pt-14 md:pt-16">
+          <NowSection status={now.status} updated={now.updated} />
+        </section>
+      )}
+
+      <section className="container-wide pt-14 md:pt-16">
         <div className="mb-8 text-center">
           <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">
             By the numbers
@@ -99,6 +112,31 @@ export default async function HomePage() {
           </Link>
         </div>
       </section>
+
+      <section className="container-wide py-14 md:py-20">
+        <div className="mb-10 text-center">
+          <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">
+            Open Source
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mt-2">GitHub Activity</h2>
+          <p className="mt-3 text-fg-muted max-w-xl mx-auto">
+            Live contribution graph pulled from GitHub — fresh every visit.
+          </p>
+        </div>
+        <GitHubGraph />
+      </section>
+
+      {testimonials.length > 0 && (
+        <section className="container-wide py-14 md:py-20">
+          <div className="mb-10">
+            <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">
+              What People Say
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2">Testimonials</h2>
+          </div>
+          <Testimonials items={testimonials} />
+        </section>
+      )}
 
       <section className="container-wide py-14 md:py-20">
         <div className="card text-center">

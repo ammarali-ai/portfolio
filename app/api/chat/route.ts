@@ -4,12 +4,12 @@ import { getCvContext } from "@/lib/content";
 
 export const runtime = "nodejs";
 
-// Strict token-budget guards (Gemini free tier safety):
-const MAX_QUESTION_CHARS = 500;        // ~125 input tokens
-const MAX_OUTPUT_TOKENS = 384;         // capped reply length
-const MAX_CONTEXT_CHARS = 6000;        // CV trimmed if larger
+// Strict token-budget guards (Gemini free tier safety)
+const MAX_QUESTION_CHARS = 500;
+const MAX_OUTPUT_TOKENS = 384;
+const MAX_CONTEXT_CHARS = 6000;
 
-// In-memory rate limit per IP (cheap defense against abuse on free tier)
+// In-memory rate limit per IP
 const hits = new Map<string, { count: number; reset: number }>();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 8;
@@ -24,6 +24,19 @@ function rateLimit(ip: string) {
   if (entry.count >= MAX_PER_WINDOW) return false;
   entry.count++;
   return true;
+}
+
+function sseHeaders() {
+  return {
+    "Content-Type": "text/event-stream; charset=utf-8",
+    "Cache-Control": "no-cache, no-transform",
+    Connection: "keep-alive",
+    "X-Accel-Buffering": "no",
+  };
+}
+
+function sseLine(obj: unknown) {
+  return `data: ${JSON.stringify(obj)}\n\n`;
 }
 
 export async function POST(req: Request) {
@@ -48,7 +61,10 @@ export async function POST(req: Request) {
     const model = getChatModel();
     if (!model) {
       return NextResponse.json(
-        { answer: "AI chat is not configured yet. Set GOOGLE_GENERATIVE_AI_API_KEY in your environment to enable it." },
+        {
+          answer:
+            "AI chat is not configured yet. Set GOOGLE_GENERATIVE_AI_API_KEY in your environment to enable it.",
+        },
         { status: 200 },
       );
     }
@@ -62,7 +78,7 @@ Speak about him in the third person ("he", "Ammar"). Do not invent details.
 ${cv}
 === CV END ===`;
 
-    const result = await model.generateContent({
+    const streamResult = await model.generateContentStream({
       contents: [
         { role: "user", parts: [{ text: `${systemPrompt}\n\nQuestion: ${trimmed}` }] },
       ],
@@ -73,13 +89,31 @@ ${cv}
       },
     });
 
-    const answer = result.response.text();
-    return NextResponse.json({ answer });
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of streamResult.stream) {
+            const text = chunk.text();
+            if (text) {
+              controller.enqueue(encoder.encode(sseLine({ delta: text })));
+            }
+          }
+          controller.enqueue(encoder.encode(sseLine({ done: true })));
+          controller.close();
+        } catch (err) {
+          console.error("[chat stream] error", err);
+          controller.enqueue(
+            encoder.encode(sseLine({ error: "Stream failed." })),
+          );
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(stream, { headers: sseHeaders() });
   } catch (err) {
     console.error("[chat] error", err);
-    return NextResponse.json(
-      { error: "Chat failed. Please try again." },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Chat failed. Please try again." }, { status: 500 });
   }
 }

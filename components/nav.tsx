@@ -14,6 +14,7 @@ const links = [
   { href: "/skills", label: "Skills" },
   { href: "/experience", label: "Experience" },
   { href: "/blog", label: "Blog" },
+  { href: "/tools/cv-ranker", label: "CV Ranker" },
   { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
 ];

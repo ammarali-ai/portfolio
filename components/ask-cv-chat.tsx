@@ -34,11 +34,61 @@ export function AskCvChat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: q }),
       });
-      const data = await res.json();
-      setMessages((m) => [
-        ...m,
-        { role: "model", text: data.answer ?? data.error ?? "Sorry, something went wrong." },
-      ]);
+
+      // Non-stream fallback (e.g. when key missing -> JSON response)
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("text/event-stream")) {
+        const data = await res.json();
+        setMessages((m) => [
+          ...m,
+          {
+            role: "model",
+            text: data.answer ?? data.error ?? "Sorry, something went wrong.",
+          },
+        ]);
+        return;
+      }
+
+      // Start a new assistant message we'll append to as tokens arrive
+      setMessages((m) => [...m, { role: "model", text: "" }]);
+
+      const reader = res.body?.getReader();
+      if (!reader) return;
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() ?? "";
+        for (const part of parts) {
+          const line = part.trim();
+          if (!line.startsWith("data:")) continue;
+          try {
+            const payload = JSON.parse(line.slice(5).trim());
+            if (payload.delta) {
+              setMessages((m) => {
+                const copy = m.slice();
+                const last = copy[copy.length - 1];
+                if (last && last.role === "model") {
+                  copy[copy.length - 1] = { ...last, text: last.text + payload.delta };
+                }
+                return copy;
+              });
+            } else if (payload.error) {
+              setMessages((m) => {
+                const copy = m.slice();
+                copy[copy.length - 1] = { role: "model", text: payload.error };
+                return copy;
+              });
+            }
+          } catch {
+            // ignore malformed line
+          }
+        }
+      }
     } catch {
       setMessages((m) => [...m, { role: "model", text: "Network error. Try again." }]);
     } finally {

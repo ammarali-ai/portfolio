@@ -5,13 +5,23 @@ A premium personal portfolio for an AI Automation Engineer. Built with Next.js 1
 ## Features
 
 - Sleek dark/light dev portfolio with glassmorphism + gradient accents
-- All 7+ pages: Home, About, Projects, Project detail, Skills, Experience, Certifications, Contact, Resume
+- **11 pages**: Home, About, Projects, Project detail, Skills, Experience, Certifications, Blog, Blog detail, CV Ranker tool, Contact, Resume
 - **Markdown-driven content** — edit `content/*.md` to update the site
 - **Admin panel** at `/admin` — password-gated, edits commit to GitHub via API
-- **"Ask my CV" Gemini chatbot** — floating widget on every page with strict token caps
-- **Contact form** powered by Resend (free tier)
+- **Streaming "Ask my CV" Gemini chatbot** — real-time token streaming via SSE
+- **CV Ranker tool** — paste CV + JD, Gemini scores the match and suggests fixes
+- **Animated signature logo** using Caveat font
+- **GitHub contribution graph** live on home page
+- **"Now" section** — one-line live status from `content/now.md`
+- **Testimonials section** — pulls from `content/testimonials.md`, hides if empty
+- **Animated stats counter** — 4 KPIs counting up on scroll
+- **9 blog posts** on AI research papers (Transformer, BERT, GPT-3, Diffusion, LoRA, CoT, RAG, etc.)
+- **Blog shuffle + research portal links** (arXiv, Papers with Code, Google Scholar, HF)
+- **Custom animated 404** page
+- **Auto-generated OG images** at root, blog, and project levels via `next/og`
+- Contact form powered by Resend (free tier)
 - Mobile-first responsive, smooth animations, dark/light theme toggle
-- SEO metadata + OG-ready
+- Complete SEO metadata + sitemap + robots
 
 ## Quick Start
 

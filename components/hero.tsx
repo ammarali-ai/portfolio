@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Download, Sparkles } from "lucide-react";
 import { ProfilePhoto } from "./profile-photo";
+import { Signature } from "./signature";
 
 type HeroProps = {
   name: string;
@@ -75,8 +76,8 @@ export function Hero({ name, role, title, bio, avatar }: HeroProps) {
               </Link>
             </motion.div>
 
-            <div className="mt-10 font-mono text-xs text-fg-muted/50 select-none">
-              — signed, Muhammad Ammar Ali
+            <div className="mt-10">
+              <Signature />
             </div>
           </div>
 
