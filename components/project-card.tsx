@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, ExternalLink, Star } from "lucide-react";
 import type { Project } from "@/lib/content";
+import { TechLogo } from "./tech-logo";
 
 export function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   return (
@@ -48,12 +49,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
 
           <div className="mt-4 flex flex-wrap gap-1.5">
             {project.tech.slice(0, 5).map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-border bg-bg-subtle px-2 py-0.5 text-[11px] font-mono text-fg-muted"
-              >
-                {t}
-              </span>
+              <TechLogo key={t} name={t} />
             ))}
           </div>
         </Link>

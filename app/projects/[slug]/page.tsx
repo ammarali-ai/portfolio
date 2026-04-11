@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { getProjectBySlug, getProjects } from "@/lib/content";
+import { TechLogo } from "@/components/tech-logo";
 
 export async function generateStaticParams() {
   const projects = await getProjects();
@@ -55,11 +56,9 @@ export default async function ProjectDetailPage({
         )}
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-1.5">
+      <div className="mt-8 flex flex-wrap gap-2">
         {project.tech.map((t) => (
-          <span key={t} className="rounded-full border border-border bg-bg-subtle px-2.5 py-1 text-xs font-mono text-fg-muted">
-            {t}
-          </span>
+          <TechLogo key={t} name={t} size="md" />
         ))}
       </div>
 

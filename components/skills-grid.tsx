@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { SkillCategory } from "@/lib/content";
+import { TechLogo } from "./tech-logo";
 
 export function SkillsGrid({ categories }: { categories: SkillCategory[] }) {
   return (
@@ -20,12 +21,7 @@ export function SkillsGrid({ categories }: { categories: SkillCategory[] }) {
           </h3>
           <div className="mt-3 flex flex-wrap gap-2">
             {cat.items.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-border bg-bg-subtle px-2.5 py-1 text-xs text-fg-muted"
-              >
-                {item}
-              </span>
+              <TechLogo key={item} name={item} size="md" />
             ))}
           </div>
         </motion.div>
@@ -39,14 +35,9 @@ export function SkillsMarquee({ categories }: { categories: SkillCategory[] }) {
   const doubled = [...all, ...all];
   return (
     <div className="relative overflow-hidden border-y border-border/60 py-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-      <div className="flex gap-4 animate-marquee whitespace-nowrap">
+      <div className="flex gap-3 animate-marquee whitespace-nowrap">
         {doubled.map((s, i) => (
-          <span
-            key={`${s}-${i}`}
-            className="font-mono text-sm text-fg-muted px-4 py-1.5 rounded-full border border-border bg-bg-card/40"
-          >
-            {s}
-          </span>
+          <TechLogo key={`${s}-${i}`} name={s} size="md" />
         ))}
       </div>
     </div>

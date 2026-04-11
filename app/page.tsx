@@ -3,15 +3,30 @@ import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { ProjectCard } from "@/components/project-card";
 import { SkillsMarquee } from "@/components/skills-grid";
-import { getProfile, getProjects, getSkills, getExperience } from "@/lib/content";
+import { StatsCounter, type Stat } from "@/components/stats-counter";
+import {
+  getProfile,
+  getProjects,
+  getSkills,
+  getExperience,
+  getCertifications,
+} from "@/lib/content";
 
 export default async function HomePage() {
   const profile = await getProfile();
   const projects = await getProjects();
   const skills = getSkills();
   const experience = getExperience();
+  const certifications = getCertifications();
   const featured = projects.filter((p) => p.featured).slice(0, 2);
   const recent = experience.slice(0, 2);
+
+  const stats: Stat[] = [
+    { value: 500, suffix: "+", label: "Users supported" },
+    { value: 92, suffix: "%", label: "Model accuracy" },
+    { value: certifications.length, suffix: "+", label: "Certifications" },
+    { value: projects.length, suffix: "", label: "AI projects shipped" },
+  ];
 
   return (
     <>
@@ -24,6 +39,16 @@ export default async function HomePage() {
       />
 
       <SkillsMarquee categories={skills} />
+
+      <section className="container-wide pt-16">
+        <div className="mb-8 text-center">
+          <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">
+            By the numbers
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mt-2">Impact at a glance</h2>
+        </div>
+        <StatsCounter stats={stats} />
+      </section>
 
       <section className="container-wide py-20">
         <div className="flex items-end justify-between mb-10">
