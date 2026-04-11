@@ -38,13 +38,13 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="card group text-center hover:shadow-[0_0_40px_rgb(var(--accent-cyan)/0.15)]"
+      className="card group text-center hover:shadow-[0_0_40px_rgb(var(--accent-cyan)/0.15)] px-3 py-5 sm:px-6 sm:py-6"
     >
-      <div className="text-5xl md:text-6xl font-bold tracking-tight gradient-text tabular-nums">
+      <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight gradient-text tabular-nums leading-none">
         {n}
         {stat.suffix}
       </div>
-      <div className="mt-2 text-xs font-mono uppercase tracking-wider text-fg-muted">
+      <div className="mt-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-fg-muted leading-snug">
         {stat.label}
       </div>
     </motion.div>

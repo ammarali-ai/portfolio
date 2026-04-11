@@ -20,8 +20,8 @@ export function Hero({ name, role, title, bio, avatar }: HeroProps) {
       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent-cyan/20 blur-3xl" />
       <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-accent-violet/20 blur-3xl" />
 
-      <div className="container-wide relative py-20 md:py-28">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] items-center">
+      <div className="container-wide relative py-16 md:py-28">
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-[1fr_auto] items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -37,7 +37,7 @@ export function Hero({ name, role, title, bio, avatar }: HeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] break-words"
             >
               {name.split(" ").slice(0, -1).join(" ")}{" "}
               <span className="gradient-text">{name.split(" ").slice(-1)[0]}</span>
@@ -47,7 +47,7 @@ export function Hero({ name, role, title, bio, avatar }: HeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-4 text-lg md:text-xl text-fg-muted font-mono"
+              className="mt-4 text-base sm:text-lg md:text-xl text-fg-muted font-mono break-words"
             >
               {title} · {role}
             </motion.p>

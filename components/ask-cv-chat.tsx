@@ -52,7 +52,7 @@ export function AskCvChat() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="Ask my CV"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet text-bg shadow-[0_0_30px_rgb(var(--accent-cyan)/0.5)] hover:scale-105 transition"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet text-bg shadow-[0_0_30px_rgb(var(--accent-cyan)/0.5)] hover:scale-105 transition"
       >
         {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
       </button>
@@ -64,7 +64,7 @@ export function AskCvChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm rounded-2xl glass shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-2xl glass shadow-2xl flex flex-col overflow-hidden"
             style={{ height: "min(70vh, 560px)" }}
           >
             <div className="flex items-center gap-2 border-b border-border px-4 py-3">

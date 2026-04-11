@@ -50,7 +50,7 @@ export default async function HomePage() {
         <StatsCounter stats={stats} />
       </section>
 
-      <section className="container-wide py-20">
+      <section className="container-wide py-14 md:py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">
@@ -72,7 +72,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="container-wide py-20">
+      <section className="container-wide py-14 md:py-20">
         <div className="mb-10">
           <p className="font-mono text-xs text-accent-cyan uppercase tracking-wider">
             Where I&apos;ve Worked
@@ -100,7 +100,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="container-wide py-20">
+      <section className="container-wide py-14 md:py-20">
         <div className="card text-center">
           <h2 className="text-2xl md:text-3xl font-bold">Let&apos;s build something intelligent.</h2>
           <p className="mt-3 text-fg-muted max-w-xl mx-auto">

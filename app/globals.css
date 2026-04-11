@@ -28,10 +28,12 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-bg text-fg font-sans;
+    overflow-x: clip;
     background-image:
       radial-gradient(at 20% 0%, rgb(var(--accent-violet) / 0.08) 0px, transparent 50%),
       radial-gradient(at 80% 100%, rgb(var(--accent-cyan) / 0.08) 0px, transparent 50%);
@@ -71,6 +73,10 @@
 
   .container-wide {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .balance {
+    text-wrap: balance;
   }
 
   .grid-bg {
