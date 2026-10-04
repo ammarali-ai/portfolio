@@ -1,0 +1,11 @@
+## Why it matters
+
+Full fine-tuning of a modern LLM needs tens of gigabytes of GPU memory and produces a full-size copy of the model per task — completely impractical for most developers. LoRA freezes the original weights and trains a tiny pair of low-rank matrices alongside each attention layer. You get 99% of the quality with 0.01% of the parameters and trainable weights small enough to share over email.
+
+## Core idea
+
+Inject rank-r update matrices (A and B) into specific weight matrices. During training, only A and B update; the base model stays frozen. At inference, you can merge them back in for zero added latency, or keep them separate and swap adapters for different tasks.
+
+## Why I care
+
+I build automation flows that use LLMs as reasoning engines. If a workflow ever needs a model specialised on company-specific data, LoRA is the practical path: far cheaper than full fine-tuning.

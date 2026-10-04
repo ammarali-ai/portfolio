@@ -1,0 +1,31 @@
+## The problem
+
+Teams that meet in Discord lose decisions and action items in the scroll. Writing up notes is a chore nobody wants, so it often doesn't happen.
+
+## What I built
+
+A Discord bot written in TypeScript with discord.js, plus three n8n workflows:
+
+- **Slash commands:** `/summarize`, `/digest`, `/ask`, `/status` and `/help`.
+- **Collection:** the bot gathers the conversation and parses it into a transcript.
+- **Hand-off:** it sends the transcript to n8n through a webhook.
+- **Prompts:** Gemini prompts for the meeting summary, action items, follow-up questions and a weekly digest, with a JSON schema for the output.
+
+## How it works
+
+<Diagram />
+
+- **Main workflow:** validates the request, fetches and parses the messages, splits long meetings into chunks, and asks Gemini for **strict-JSON notes**: a short summary, key topics, decisions, and action items with owner, due date and priority.
+- **Delivery:** the result becomes a Discord embed with the full notes in a thread underneath, and every meeting is logged to Google Sheets.
+- **Scheduled digest:** a second workflow reads the log every morning and posts a digest of the last seven days.
+- **Error handler:** a third workflow reports any failure back to Discord, so problems don't fail silently.
+
+## Results
+
+Meeting notes appear in the channel as soon as someone runs `/summarize`, with owners and due dates already on the action items, and a searchable log builds up in Sheets over time.
+
+{/* TODO (owner): add a screenshot of a real (non-sensitive) summary embed. */}
+
+## What I'd do next
+
+Reminders before action items are due, and letting `/ask` answer questions across past meetings from the log.

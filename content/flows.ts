@@ -349,6 +349,77 @@ const list: FlowSpec[] = [
     ],
   },
   {
+    // From the owner's n8n editor (screenshot): Webhook → Get row(s) → Switch → Code → Discord.
+    id: "task-event-router",
+    title: "Task event router",
+    description:
+      "The production router behind the task alerts: each event is matched to the right people from a data table, then routed by type, so new tasks, comments and status changes each get their own Discord message.",
+    source: "n8n-anonymized",
+    context: "Work project · anonymized",
+    nodes: [
+      { id: "webhook", label: "Task events webhook", kind: "trigger" },
+      { id: "lookup", label: "Look up people (data table)", kind: "data" },
+      { id: "route", label: "Route by event type", kind: "logic" },
+      { id: "fmt-task", label: "Format new-task message", kind: "logic" },
+      { id: "fmt-comment", label: "Format comment message", kind: "logic" },
+      { id: "dm-task", label: "Discord: new task", kind: "output" },
+      { id: "dm-comment", label: "Discord: new comment", kind: "output" },
+      { id: "dm-status", label: "Discord: status change", kind: "output" },
+    ],
+    edges: [
+      ["webhook", "lookup"],
+      ["lookup", "route"],
+      ["route", "fmt-task", "task created"],
+      ["route", "fmt-comment", "comment added"],
+      ["route", "dm-status", "status updated"],
+      ["fmt-task", "dm-task"],
+      ["fmt-comment", "dm-comment"],
+    ],
+  },
+  {
+    // Built into this site: /api/contact forwards submissions to an n8n or Zapier webhook.
+    id: "portfolio-contact",
+    title: "Portfolio contact → n8n / Zapier",
+    description:
+      "This site's contact form is itself an automation: each message is validated and rate-limited, emailed with Resend, and forwarded to an n8n (or Zapier) webhook that posts an alert to Discord.",
+    source: "architecture",
+    context: "Live on this site",
+    nodes: [
+      { id: "form", label: "Contact form", kind: "trigger" },
+      { id: "validate", label: "Validate + rate limit", kind: "logic" },
+      { id: "email", label: "Email via Resend", kind: "output" },
+      { id: "webhook", label: "n8n / Zapier webhook", kind: "trigger" },
+      { id: "check", label: "Check secret + format", kind: "logic" },
+      { id: "discord", label: "Discord alert", kind: "output" },
+    ],
+    edges: [
+      ["form", "validate"],
+      ["validate", "email"],
+      ["validate", "webhook"],
+      ["webhook", "check"],
+      ["check", "discord"],
+    ],
+  },
+  {
+    id: "restaurant-names",
+    title: "LangChain sequential chain",
+    description:
+      "Two LLM calls chained with LangChain's SequentialChain: the first invents a restaurant name for a cuisine, the second writes a menu for that name.",
+    source: "architecture",
+    context: "Course project",
+    nodes: [
+      { id: "cuisine", label: "Pick a cuisine (Streamlit)", kind: "trigger" },
+      { id: "name", label: "Name chain (LLM)", kind: "ai" },
+      { id: "menu", label: "Menu chain (LLM)", kind: "ai" },
+      { id: "ui", label: "Name + menu in the app", kind: "output" },
+    ],
+    edges: [
+      ["cuisine", "name"],
+      ["name", "menu"],
+      ["menu", "ui"],
+    ],
+  },
+  {
     // Roles taken from the project's module names (agents/planner, researcher, coder, critic;
     // tools/code_executor). TODO: confirm the exact control flow with the owner.
     id: "multi-agent",

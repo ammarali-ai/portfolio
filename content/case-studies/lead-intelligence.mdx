@@ -1,0 +1,29 @@
+{/* Client work: keep it anonymized. */}
+
+## The problem
+
+Before a sales call, someone has to research the lead: their business profile, competitors, what shows up in search, and what their own website says. Done by hand, it's slow and inconsistent.
+
+## What I built
+
+An n8n workflow that does the research the moment a lead comes in, and emails a strategy brief.
+
+## How it works
+
+<Diagram />
+
+- **Intake:** a webhook receives the lead and normalizes it.
+- **Research:** the workflow fans out to four lookups **in parallel**: the business profile (Google Places), competitors, search results (a SERP API) and the lead's website.
+- **Analysis:** the findings are assembled into one enrichment record, and an LLM (Groq) writes a strategic analysis that is parsed, turned into a brief and emailed.
+
+Running the lookups in parallel keeps the whole run fast, and assembling them first means the model sees all the evidence at once.
+
+## Results
+
+Every lead arrives with the same researched brief, whether it comes in at 2 p.m. or 2 a.m.
+
+{/* TODO (owner): add numbers if you can share them (leads per week, research time saved). */}
+
+## What I'd do next
+
+A second report with scenario planning (already sketched in the workflow) and scoring leads by fit before a human looks at them.

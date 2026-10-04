@@ -178,7 +178,7 @@
 
 /* Glass surface, to be used sparingly (navbar, overlays, featured cards). */
 @utility glass {
-  background: color-mix(in oklch, var(--card) 65%, transparent);
+  background: color-mix(in oklch, var(--card) 82%, transparent);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
 }

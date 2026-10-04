@@ -1,4 +1,5 @@
-import { ExternalLink, FlaskConical } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, BookOpen, ExternalLink, FlaskConical } from "lucide-react";
 import type { ProjectMeta } from "@/content/schema";
 import { featuredProjects, projects } from "@/content/projects";
 import { domains } from "@/content/domains";
@@ -10,6 +11,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { GitHubIcon } from "@/components/icons/brand-icons";
 import { FlowDialogButton } from "@/components/flow/flow-dialog-button";
 import { getFlow } from "@/content/flows";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const otherProjects = projects.filter((p) => !p.featured);
@@ -31,9 +33,18 @@ function ProjectLinks({ project }: { project: ProjectMeta }) {
   ];
   const links = candidates.filter((l): l is CardLink => l !== null);
 
-  if (links.length === 0 && !project.diagram) return null;
   return (
     <ul className="mt-5 flex flex-wrap gap-2">
+      <li>
+        <Link
+          href={`/projects/${project.slug}`}
+          className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:border-brand/50 hover:text-brand"
+        >
+          <BookOpen className="size-3.5" aria-hidden="true" />
+          Case study
+          <span className="sr-only"> for {project.title}</span>
+        </Link>
+      </li>
       {project.diagram && (
         <li>
           <FlowDialogButton spec={getFlow(project.diagram)} projectTitle={project.title} />
@@ -155,6 +166,13 @@ export function FeaturedProjects() {
         ))}
       </div>
 
+      <div className="mt-8 flex justify-center">
+        <Link href="/projects" className={buttonVariants({ variant: "outline", size: "lg" })}>
+          All {projects.length} projects with case studies
+          <ArrowRight data-icon="inline-end" aria-hidden="true" />
+        </Link>
+      </div>
+
       {otherProjects.length > 0 && (
         <>
           <h3 className="mt-14 mb-5 text-xl font-semibold">{moreProjectsTitle}</h3>
@@ -166,7 +184,11 @@ export function FeaturedProjects() {
                 className="flex flex-col rounded-xl border border-border bg-card/60 p-4"
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <h4 className="font-semibold">{project.title}</h4>
+                  <h4 className="font-semibold">
+                    <Link href={`/projects/${project.slug}`} className="hover:text-brand">
+                      {project.title}
+                    </Link>
+                  </h4>
                   <StatusBadge status={project.status} />
                 </div>
                 <p className="text-sm text-muted-foreground">{project.impact}</p>

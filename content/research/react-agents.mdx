@@ -1,0 +1,11 @@
+## Why it matters
+
+Before ReAct, LLMs either _thought_ (chain-of-thought) or _acted_ (tool use), but not both in the same loop. ReAct introduced a simple prompt pattern — **Thought → Action → Observation → Thought** — that let models plan, call tools, observe results, and replan. Every agent framework I've used is a variation on this idea.
+
+## Core idea
+
+Interleave natural-language reasoning steps with discrete actions (search, API call, code execution). The reasoning keeps the agent on track; the actions give it grounded information that pure CoT can't produce.
+
+## Why I care
+
+I build automation workflows with **n8n**, **Claude** and **GoHighLevel** that behave like ReAct agents with a visual editor. The paper helps me design workflows where the LLM's reasoning is auditable and the tools are well-scoped.

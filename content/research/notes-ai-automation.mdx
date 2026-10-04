@@ -1,0 +1,19 @@
+{/* DRAFT (hidden in production). TODO (owner): expand in your own words, then set draft: false in content/research.ts. */}
+
+## The question
+
+An LLM is great at the judgement step of a workflow (classify this call, summarise this event, decide this branch) but it is not deterministic. How do you keep a production automation predictable when one of its steps is a model?
+
+## What I've built so far
+
+- The [Real-Time Monitoring & Alert System](/projects/realtime-monitoring) validates every event before anything else runs and sends bad payloads to error handling instead of dropping them.
+- The [Call Analyzer](/projects/call-analyzer) asks the model for a strict JSON schema and parses and validates it before anything is saved or emailed.
+- The [LLM Prompt Feedback Loop](/projects/prompt-feedback-loop) feeds real outcomes back into prompt tuning every week.
+
+## Patterns I want to write up
+
+- Schema-first outputs: structured outputs plus validation, and what to do when validation fails.
+- Retries vs. human hand-off: when to try again and when to escalate.
+- Observability: logging the inputs and decisions you'll need when something goes wrong.
+
+{/* TODO: add a concrete example and one lesson learned from a failure. */}

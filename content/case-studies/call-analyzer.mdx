@@ -1,0 +1,31 @@
+{/* Client work: keep it anonymized. No client, rep or product names. */}
+
+## The problem
+
+A sales team records its calls, but nobody has time to review them all. Coaching depends on whichever calls a manager happens to listen to, and follow-ups are written from memory.
+
+## What I built
+
+Two iterations for a client:
+
+1. **A full-stack dashboard:** Next.js and Supabase with authentication and row-level security, so each person only sees their own calls. An analysis API runs each transcript through an LLM, adds rule-based flags, and stores the result per call.
+2. **An n8n pipeline** that makes the whole thing hands-free, from the moment a call ends to the emails that follow.
+
+## How it works
+
+<Diagram />
+
+- **Transcript:** the pipeline accepts a call and acknowledges the request immediately. It uses the transcript if one is included, fetches it if not, and falls back to Whisper transcription when no transcript exists.
+- **Analysis:** an LLM classifies the call type, the rep is looked up in the database, and a master analysis prompt produces a structured review that is parsed and validated against a strict JSON schema before anything else happens.
+- **Delivery:** three things happen in parallel. A full HTML report goes to the rep, a follow-up email is drafted for them, and the call is saved with an alert to their manager.
+- **Weekly digest:** a separate workflow sums up the last seven days of calls for the team every Monday.
+
+## Results
+
+Every call now gets the same structured review, reps get feedback and a ready-to-edit follow-up while the call is still fresh, and managers see what needs attention without listening to recordings.
+
+{/* TODO (owner): add numbers if the client is happy for you to share them (calls per week, time saved). */}
+
+## What I'd do next
+
+Trend views per rep over time, and using the analysed calls to improve the prompts automatically (see the [LLM Prompt Feedback Loop](/projects/prompt-feedback-loop)).

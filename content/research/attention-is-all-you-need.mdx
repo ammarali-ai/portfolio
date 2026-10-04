@@ -1,0 +1,11 @@
+## Why it matters
+
+Before 2017, sequence modeling in NLP meant RNNs and LSTMs — step-by-step processing that didn't parallelize well on GPUs. Vaswani and colleagues at Google Brain introduced the **Transformer**, an architecture built entirely on self-attention and feed-forward layers. It trained faster, scaled better, and outperformed everything that came before on translation benchmarks.
+
+## Core idea — self-attention
+
+Every token in a sentence computes **queries, keys, and values**, and attends to every other token in parallel. This captures long-range dependencies (e.g. subject-verb agreement across a 40-word sentence) in one operation.
+
+## Why I care
+
+BERT, a direct descendant of this paper, is one of the two models in my **Fake News Detection** project (alongside an SVM), which reached 90% accuracy across English, Urdu and Spanish. Knowing how self-attention works turns BERT from a black box into something I can reason about and tune.

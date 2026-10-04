@@ -1,0 +1,24 @@
+## The problem
+
+Cotton diseases damage yield, and like rice they show up on the leaves. The question for this semester project was whether a CNN could classify cotton leaf images into disease categories reliably.
+
+## What I built
+
+A convolutional neural network built with TensorFlow, with a preprocessing and **data augmentation** pipeline in OpenCV to make the most of a limited image set.
+
+## How it works
+
+<Diagram />
+
+Images are cleaned and augmented (varied so the model sees more realistic conditions), then a CNN learns to classify each leaf into one of 5+ disease categories.
+
+## Results
+
+- **89% accuracy** across 5+ disease categories.
+- Came before my final-year [Rice Leaf Disease AI](/projects/rice-leaf-disease) project, where I compared four approaches on a larger dataset.
+
+{/* TODO (owner): add the class names and dataset size. */}
+
+## What I'd do next
+
+Compare against transfer learning (which won in my rice-leaf project) and test on real field photos.

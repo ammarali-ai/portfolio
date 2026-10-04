@@ -93,8 +93,8 @@ export const projects: readonly ProjectMeta[] = [
     impact: "Real-or-fake news classifier for English, Urdu and Spanish at 90% accuracy.",
     // Stack confirmed by the owner (BERT + SVM). The older local repo copy is an earlier TF-IDF + NB prototype.
     summary:
-      "A three-language NLP system (English, Urdu, Spanish) that classifies news text as real or fake, built with BERT and an SVM classifier and reaching 90% accuracy.",
-    tech: ["Python", "BERT", "SVM", "NLP"],
+      "A three-language NLP system (English, Urdu, Spanish) that classifies news text as real or fake, built with multilingual BERT (Hugging Face Transformers) and an SVM classifier and reaching 90% accuracy.",
+    tech: ["Python", "BERT", "Hugging Face Transformers", "SVM", "TensorFlow", "Scikit-learn"],
     status: "built",
     featured: true,
     date: "2024-10",
@@ -194,6 +194,37 @@ export const projects: readonly ProjectMeta[] = [
     date: "2026-10",
     links: { demo: "/tools/cv-ranker" },
     diagram: "cv-ranker",
+  },
+  {
+    slug: "portfolio-contact-automation",
+    title: "Portfolio Contact Automation",
+    domain: "automation",
+    impact:
+      "Every message sent through this site is emailed and forwarded to n8n or Zapier, which alerts me on Discord.",
+    summary:
+      "The contact form on this site is a small production automation: Zod validation, a honeypot and rate limits, delivery by Resend, and a signed webhook to n8n (or Zapier) with an importable n8n workflow that posts to Discord.",
+    tech: ["n8n", "Zapier", "Webhooks", "Resend", "Next.js", "Discord"],
+    status: "built",
+    featured: false,
+    date: "2026-10",
+    links: {},
+    diagram: "portfolio-contact",
+  },
+  {
+    // Course project (LangChain crash course): described from its own code.
+    slug: "langchain-restaurant-generator",
+    title: "LangChain Restaurant Name Generator",
+    domain: "automation",
+    impact:
+      "Pick a cuisine and two chained LLM calls invent a restaurant name and a matching menu.",
+    summary:
+      "A learning project built while following a LangChain course: a Streamlit app where LangChain's SequentialChain runs two prompt templates in order, first a restaurant name for the chosen cuisine, then menu items for that name.",
+    tech: ["Python", "LangChain", "OpenAI", "Streamlit"],
+    status: "built",
+    featured: false,
+    date: "2026-04", // TODO (owner): confirm; taken from the file date
+    links: {},
+    diagram: "restaurant-names",
   },
 ];
 

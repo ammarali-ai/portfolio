@@ -1,0 +1,27 @@
+## The problem
+
+Rice diseases are easier to manage when they're caught early, and early signs show up on the leaves. Could an image classifier identify the disease reliably, and which kind of model generalises best on domain-specific data?
+
+## What I built
+
+My final-year project: an image-based classification system trained and validated on a dataset of **10,000+ rice leaf images**, processed with OpenCV. Instead of picking one model up front, I compared four approaches on the same data.
+
+## How it works
+
+<Diagram />
+
+- **CNN:** a convolutional network trained from scratch with TensorFlow and Keras.
+- **SVM:** a classical support vector machine on image features.
+- **Transfer learning:** a pretrained network fine-tuned on the leaf images.
+- **Random forest:** a tree-ensemble baseline.
+
+## Results
+
+- **92% accuracy** on the classification task.
+- **Transfer learning generalised best** of the four approaches, a useful lesson for data-scarce domains where training from scratch overfits.
+
+{/* TODO (owner): add the disease classes, train/test split and per-model scores if you have them. */}
+
+## What I'd do next
+
+Detect _where_ the disease is on the leaf rather than only _which_ disease (see my note on [YOLO](/research/yolo-realtime)), and package the model to run offline on a phone. The same methodology could apply to satellite or drone imagery for crop or damage assessment.

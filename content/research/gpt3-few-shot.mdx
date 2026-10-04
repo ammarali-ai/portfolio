@@ -1,0 +1,11 @@
+## Why it matters
+
+Before GPT-3, adapting a language model to a new task meant collecting thousands of labeled examples and fine-tuning. Brown and colleagues at OpenAI trained a 175B-parameter model and showed it could do new tasks from just a few examples in the prompt — the now-familiar "few-shot" pattern. That single result reshaped how practitioners think about building NLP systems.
+
+## Core idea — in-context learning
+
+Instead of updating weights, you give the model a task description plus a handful of input/output pairs in the prompt, and it picks up the pattern at inference time. Scale is what makes this work: the capability emerges sharply around the 10B+ parameter range.
+
+## Why I care
+
+I build automation workflows with **Claude**. Zero-shot classification, intent routing inside n8n and drafting replies are all in-context learning in production. Knowing the original result helps me write prompts that use what the model is good at instead of fighting it.

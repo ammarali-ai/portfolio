@@ -1,0 +1,11 @@
+## Why it matters
+
+Before diffusion, image generation was dominated by GANs — powerful but hard to train and prone to mode collapse. DDPM introduced a simple alternative: corrupt real images with noise step by step, then train a neural network to reverse that process. The result is stable training, state-of-the-art sample quality, and the architecture behind nearly every modern text-to-image model.
+
+## Core idea
+
+Forward process: add a tiny bit of Gaussian noise T times (T ≈ 1000) until an image becomes pure noise. Reverse process: a U-Net learns to predict the noise added at each step, letting you denoise all the way back to a sample from the data distribution. Simple MSE loss, no adversarial tricks.
+
+## Why I care
+
+My computer-vision projects (rice-leaf and cotton-crop classifiers) use discriminative CNNs to **recognize** images. Diffusion is the generative counterpart, and a natural next step for augmenting small agricultural datasets with synthetic diseased-leaf images.

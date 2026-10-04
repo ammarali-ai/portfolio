@@ -1,0 +1,27 @@
+{/* Client work: keep it anonymized. */}
+
+## The problem
+
+Prompts in production automations are usually written once and then left alone, even as the business learns which calls convert and why deals are lost. The prompts don't learn from the outcomes they're supposed to improve.
+
+## What I built
+
+A weekly n8n workflow that closes that loop: it turns sales outcomes into prompt-tuning notes.
+
+## How it works
+
+<Diagram />
+
+- **Gather:** every Monday it reads three sources in parallel (call outcomes, lost reasons and meeting briefs) and computes metrics across them.
+- **Analyse:** Claude summarises the patterns.
+- **Record and share:** the findings are appended as prompt-tuning notes and posted as a digest to the team's Slack channel.
+
+## Results
+
+Prompt changes are now driven by a weekly, evidence-based report instead of guesswork, and the team sees the same picture in Slack.
+
+{/* TODO (owner): add an example of a prompt change that came out of the loop, if shareable. */}
+
+## What I'd do next
+
+Run proposed prompt changes against a small evaluation set before they go live, so each change is measured, not just reasoned about.

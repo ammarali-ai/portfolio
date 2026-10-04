@@ -1,0 +1,184 @@
+[
+  {
+    "slug": "rag",
+    "title": "RAG — Retrieval-Augmented Generation",
+    "date": "2025-03-08",
+    "excerpt": "Give an LLM access to a searchable knowledge base and it stops hallucinating facts. The architecture behind every 'chat with your docs' product.",
+    "tags": ["LLM", "Retrieval", "NLP"],
+    "kind": "paper",
+    "authors": ["Lewis et al."],
+    "source": {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (NeurIPS 2020)",
+      "url": "https://arxiv.org/abs/2005.11401"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "chain-of-thought",
+    "title": "Chain-of-Thought Prompting",
+    "date": "2025-02-20",
+    "excerpt": "Asking an LLM to 'think step by step' doesn't just feel more intelligent — it measurably improves accuracy on math, logic, and reasoning benchmarks.",
+    "tags": ["LLM", "Prompting", "Reasoning"],
+    "kind": "paper",
+    "authors": ["Wei et al."],
+    "source": {
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (NeurIPS 2022)",
+      "url": "https://arxiv.org/abs/2201.11903"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "lora-fine-tuning",
+    "title": "LoRA — Low-Rank Adaptation of Large Language Models",
+    "date": "2025-02-05",
+    "excerpt": "Fine-tune a 175B-parameter model by training just 0.01% of the weights. The technique that made personal LLM fine-tuning practical.",
+    "tags": ["LLM", "Fine-tuning", "Efficient"],
+    "kind": "paper",
+    "authors": ["Hu et al."],
+    "source": {
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models (ICLR 2022)",
+      "url": "https://arxiv.org/abs/2106.09685"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "diffusion-models",
+    "title": "Denoising Diffusion Probabilistic Models",
+    "date": "2025-01-12",
+    "excerpt": "The paper behind Stable Diffusion, DALL·E 2, and Midjourney. Turn noise into images by learning to reverse a gradual corruption process.",
+    "tags": ["Generative AI", "Computer Vision"],
+    "kind": "paper",
+    "authors": ["Ho, Jain, Abbeel"],
+    "source": {
+      "title": "Denoising Diffusion Probabilistic Models (NeurIPS 2020)",
+      "url": "https://arxiv.org/abs/2006.11239"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "adam-optimizer",
+    "title": "Adam — Adaptive Moment Estimation",
+    "date": "2024-12-01",
+    "excerpt": "The optimizer that quietly powers most deep learning models. Combines momentum and per-parameter learning rates in one elegant update rule.",
+    "tags": ["Optimization", "Deep Learning"],
+    "kind": "paper",
+    "authors": ["Kingma & Ba"],
+    "source": {
+      "title": "Adam: A Method for Stochastic Optimization (ICLR 2015)",
+      "url": "https://arxiv.org/abs/1412.6980"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "word2vec",
+    "title": "Word2Vec — Efficient Word Representations",
+    "date": "2024-11-02",
+    "excerpt": "The paper that made 'king - man + woman ≈ queen' a real thing, and gave NLP its first widely-used dense embeddings.",
+    "tags": ["NLP", "Embeddings"],
+    "kind": "paper",
+    "authors": ["Mikolov et al."],
+    "source": {
+      "title": "Efficient Estimation of Word Representations in Vector Space (ICLR 2013)",
+      "url": "https://arxiv.org/abs/1301.3781"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "yolo-realtime",
+    "title": "YOLO — You Only Look Once",
+    "date": "2024-10-08",
+    "excerpt": "Reformulating object detection as a single regression problem made real-time detection practical. 45 FPS on a GPU, with one forward pass.",
+    "tags": ["Computer Vision", "Object Detection", "CNN"],
+    "kind": "paper",
+    "authors": ["Redmon, Divvala, Girshick, Farhadi"],
+    "source": {
+      "title": "You Only Look Once: Unified, Real-Time Object Detection (CVPR 2016)",
+      "url": "https://arxiv.org/abs/1506.02640"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "gpt3-few-shot",
+    "title": "GPT-3 — Language Models are Few-Shot Learners",
+    "date": "2024-09-14",
+    "excerpt": "The paper that showed scaling alone turns a language model into a few-shot learner — no fine-tuning required. Prompt engineering as we know it started here.",
+    "tags": ["LLM", "NLP", "Prompting"],
+    "kind": "paper",
+    "authors": ["Brown et al."],
+    "source": {
+      "title": "Language Models are Few-Shot Learners (NeurIPS 2020)",
+      "url": "https://arxiv.org/abs/2005.14165"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "react-agents",
+    "title": "ReAct — Reasoning + Acting for LLM Agents",
+    "date": "2024-08-22",
+    "excerpt": "The paper that showed LLMs could interleave chain-of-thought with tool calls, laying the groundwork for every modern AI agent framework including Claude Code and n8n AI nodes.",
+    "tags": ["LLM", "Agents", "Automation"],
+    "kind": "paper",
+    "authors": ["Yao et al."],
+    "source": {
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023)",
+      "url": "https://arxiv.org/abs/2210.03629"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "resnet",
+    "title": "ResNet — Deep Residual Learning",
+    "date": "2024-05-18",
+    "excerpt": "Skip connections made it possible to train 150+ layer networks without the vanishing gradient problem, winning ImageNet 2015.",
+    "tags": ["Computer Vision", "CNN", "Deep Learning"],
+    "kind": "paper",
+    "authors": ["He et al."],
+    "source": {
+      "title": "Deep Residual Learning for Image Recognition (CVPR 2016)",
+      "url": "https://arxiv.org/abs/1512.03385"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "imagenet-cnn",
+    "title": "AlexNet — The Paper That Started the Deep Learning Boom",
+    "date": "2024-04-12",
+    "excerpt": "The 2012 ImageNet-winning CNN that halved the error rate overnight and put GPU-trained deep nets on the map.",
+    "tags": ["Computer Vision", "CNN", "Deep Learning"],
+    "kind": "paper",
+    "authors": ["Krizhevsky, Sutskever, Hinton"],
+    "source": {
+      "title": "ImageNet Classification with Deep Convolutional Neural Networks (NeurIPS 2012)",
+      "url": "https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "bert-pretraining",
+    "title": "BERT — Bidirectional Pre-training for Language Understanding",
+    "date": "2024-03-05",
+    "excerpt": "How masked language modeling and next-sentence prediction unlocked transfer learning for NLP and powered a whole generation of classifiers.",
+    "tags": ["NLP", "Transfer Learning", "Transformers"],
+    "kind": "paper",
+    "authors": ["Devlin et al."],
+    "source": {
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (NAACL 2019)",
+      "url": "https://arxiv.org/abs/1810.04805"
+    },
+    "readingMinutes": 1
+  },
+  {
+    "slug": "attention-is-all-you-need",
+    "title": "Attention Is All You Need — The Transformer",
+    "date": "2024-02-10",
+    "excerpt": "The 2017 paper that replaced recurrence with self-attention and became the foundation of every modern LLM including BERT, GPT, and Gemini.",
+    "tags": ["Deep Learning", "NLP", "Transformers"],
+    "kind": "paper",
+    "authors": ["Vaswani et al."],
+    "source": {
+      "title": "Attention Is All You Need (NeurIPS 2017)",
+      "url": "https://arxiv.org/abs/1706.03762"
+    },
+    "readingMinutes": 1
+  }
+]

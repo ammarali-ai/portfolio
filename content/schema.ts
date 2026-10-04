@@ -126,6 +126,24 @@ export interface ProjectMeta {
   diagram?: FlowId;
 }
 
+/** Metadata for a /research entry; the body lives in content/research/<slug>.mdx. */
+export interface ResearchMeta {
+  slug: string;
+  title: string;
+  /** "YYYY-MM-DD". */
+  date: string;
+  excerpt: string;
+  tags: readonly string[];
+  /** "paper": explainer of a research paper; "note": my own research notes per domain. */
+  kind: "paper" | "note";
+  domain?: DomainId;
+  /** Drafts are listed only in development and are not built in production. */
+  draft?: boolean;
+  authors?: readonly string[];
+  source?: { title: string; url: string };
+  readingMinutes: number;
+}
+
 /** Heading copy for a homepage section. */
 export interface SectionCopy {
   /** Small mono label above the title. */
@@ -174,7 +192,10 @@ export type FlowId =
   | "cotton-crop"
   | "fake-news"
   | "cv-ranker"
-  | "multi-agent";
+  | "multi-agent"
+  | "task-event-router"
+  | "portfolio-contact"
+  | "restaurant-names";
 
 export interface FlowSpec {
   id: FlowId;

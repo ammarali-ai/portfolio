@@ -1,0 +1,25 @@
+## The problem
+
+A contact form that only sends an email is easy to miss. I wanted every enquiry to reach me instantly in the tools I live in, without trusting visitors' input or getting spammed.
+
+## What I built
+
+The contact form on this site is a small production automation:
+
+- **Validation first:** Zod on the server, a hidden honeypot field for bots, and per-visitor rate limits.
+- **Two delivery channels in parallel:** an email via Resend and a signed webhook to **n8n** (or **Zapier**). One success is enough, so a single outage doesn't lose a message.
+- **An importable n8n workflow** in the repo (`automations/n8n/portfolio-contact-alert.json`). It checks a shared secret, trims long messages and posts an alert to Discord with mentions disabled, so a visitor can't ping everyone.
+
+## How it works
+
+<Diagram />
+
+For Zapier, the same webhook works with **Webhooks by Zapier → Catch Hook**, and from there to Slack, Gmail, Google Sheets or a CRM.
+
+## Results
+
+Once the webhook is connected, messages arrive in Discord seconds after they're sent, with the email as a backup, and forged calls without the secret are rejected. (I tested the workflow's validation logic locally: wrong secrets are refused and long messages are trimmed to fit Discord's limit.)
+
+## What I'd do next
+
+Log every enquiry to a sheet and send an automatic, personal acknowledgement email.

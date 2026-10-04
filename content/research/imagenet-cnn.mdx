@@ -1,0 +1,14 @@
+## Why it matters
+
+AlexNet dropped the ImageNet top-5 error from 26% to 15% — an unheard-of jump at the time. It proved that **depth + GPUs + ReLU + dropout** was the recipe for image recognition, and every CNN architecture I've used since (VGG, ResNet, EfficientNet) is a descendant.
+
+## Core ideas
+
+- **ReLU activations** trained several times faster than tanh
+- **Dropout** as a regularizer to prevent overfitting on limited data
+- **GPU training** across two GTX 580s — this is what made the depth practical
+- **Data augmentation** with random crops and flips
+
+## Why I care
+
+My **Rice Leaf Disease** (92% accuracy) and **Cotton Crop Disease** (89%) projects both use CNN architectures that trace back to AlexNet's playbook. Every ReLU and dropout layer I write stands on this paper.

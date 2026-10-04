@@ -1,0 +1,11 @@
+## Why it matters
+
+Before ResNet, stacking more layers actually made CNNs _worse_ — gradients vanished on the way back. He and colleagues at Microsoft introduced **residual connections** (`y = F(x) + x`), and suddenly 152-layer networks trained cleanly and won ImageNet.
+
+## Core idea
+
+Instead of asking a block of layers to learn a full mapping, ask it to learn a **residual** — the difference from the identity. Skip connections give the optimizer a highway so information (and gradients) can flow even when the block hasn't learned anything useful yet.
+
+## Why I care
+
+ResNet-style networks are a common starting point for transfer learning on medical and agricultural images. Transfer learning generalised best of the four approaches I compared in my rice-leaf project, so residual backbones are on my shortlist for future crop-disease work.

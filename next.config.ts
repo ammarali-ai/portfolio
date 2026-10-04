@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   // Lets a local preview build live beside the dev build (NEXT_DIST_DIR=.next-preview).
@@ -9,4 +10,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// MDX for case studies (content/case-studies) and research (content/research).
+// Plugins are referenced by name so they work with Turbopack.
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ["remark-gfm"],
+  },
+});
+
+export default withMDX(nextConfig);

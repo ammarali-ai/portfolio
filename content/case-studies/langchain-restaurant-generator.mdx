@@ -1,0 +1,19 @@
+{/* Course project: keep it honestly labelled as a learning project. */}
+
+## Why I built it
+
+A hands-on way to learn LangChain's core building blocks (prompt templates, LLM chains and chaining them together) while following a LangChain course.
+
+## What I built
+
+A small Streamlit app: pick a cuisine from the sidebar, and it returns a restaurant name and a matching menu.
+
+## How it works
+
+<Diagram />
+
+Two `LLMChain`s, each with its own prompt template, are combined with LangChain's `SequentialChain`. The first chain turns the cuisine into a restaurant name, and its output becomes the input of the second, which writes the menu items. Streamlit renders the result.
+
+## What I learned
+
+How chaining keeps each prompt small and focused, and how one step's output becomes the next step's input. The same idea sits underneath the multi-step workflows I now build in n8n and LangGraph.

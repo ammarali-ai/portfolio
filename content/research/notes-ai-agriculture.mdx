@@ -1,0 +1,18 @@
+{/* DRAFT (hidden in production). TODO (owner): expand in your own words, then set draft: false in content/research.ts. */}
+
+## The question
+
+Crop-disease models look great on clean benchmark images. Farmers' photos are blurry, badly lit and taken on low-end phones, and labelled data is scarce. What actually works under those conditions?
+
+## What I've built so far
+
+- [Rice Leaf Disease AI](/projects/rice-leaf-disease): 10,000+ images, four approaches compared (CNN, SVM, transfer learning, random forest). Transfer learning generalised best, at 92% accuracy.
+- [Cotton Crop Disease Detection](/projects/cotton-crop-disease): a CNN with a preprocessing and augmentation pipeline, at 89% accuracy across 5+ disease categories.
+
+## Directions I want to explore
+
+- Detection instead of classification: _where_ on the leaf the disease is (see my note on [YOLO](/research/yolo-realtime)).
+- Synthetic data for rare diseases (see [diffusion models](/research/diffusion-models)).
+- Small models that run offline on a phone.
+
+{/* TODO: add the datasets you used and what you'd change with more data. */}

@@ -1,0 +1,11 @@
+## Why it matters
+
+Older detectors like R-CNN ran a classifier over hundreds of region proposals — accurate but slow. YOLO dropped the pipeline entirely: one CNN, one forward pass, bounding boxes + class probabilities straight out. That made object detection usable in real-time applications for the first time.
+
+## Core idea
+
+Divide the image into an S×S grid. Each cell predicts a fixed number of bounding boxes and class confidences. Train end-to-end with a single loss that balances localization, confidence, and classification.
+
+## Why I care
+
+My **Rice Leaf Disease** and **Cotton Crop Disease** classifiers answer _"what's in this image?"_. A YOLO-style detector would answer the harder question, _"where on this leaf are the diseased spots?"_, a natural next step I'd like to explore.

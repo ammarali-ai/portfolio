@@ -1,0 +1,22 @@
+{/* TODO (owner): this case study is based only on the project's module names (the source on disk was lost). Please confirm the control flow, add the repo link in content/projects.ts, and expand. */}
+
+## The problem
+
+A single LLM call struggles with tasks that need planning, research, coding and review. Splitting the job across specialised agents makes each step simpler and easier to check.
+
+## What I built
+
+A multi-agent system in **LangGraph** with four specialist agents and a code-execution tool, with **pytest** tests for the components.
+
+## How it works
+
+<Diagram />
+
+- **Planner:** breaks the task into steps.
+- **Researcher:** gathers the context those steps need.
+- **Coder:** writes the code and runs it through a **code-execution tool**.
+- **Critic:** reviews the result before the final answer is returned.
+
+## Status
+
+In progress.

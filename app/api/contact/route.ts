@@ -5,6 +5,7 @@ import { profile } from "@/content/profile";
 import type { ContactResponse } from "@/lib/contact";
 import { contactSchema } from "@/lib/contact-schema";
 import { clientIp, createRateLimiter } from "@/lib/ratelimit";
+import { automationWebhookConfigured, sendToAutomation } from "@/lib/automation-webhook";
 
 export const runtime = "nodejs";
 
@@ -14,6 +15,31 @@ function reply(body: ContactResponse, status = 200) {
   return NextResponse.json(body, { status });
 }
 
+async function sendEmail(
+  apiKey: string,
+  d: { name: string; email: string; subject: string; message: string },
+) {
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
+      to: process.env.CONTACT_TO_EMAIL ?? profile.email,
+      replyTo: d.email,
+      subject: `[Portfolio] ${d.subject}`,
+      text: `From: ${d.name} <${d.email}>\n\n${d.message}`,
+    });
+    if (error) console.error("[contact] Resend error", error.name);
+    return !error;
+  } catch (err) {
+    console.error("[contact] Resend failed", err instanceof Error ? err.name : err);
+    return false;
+  }
+}
+
+/**
+ * Contact form: validate, then deliver through every configured channel in parallel:
+ * email (Resend) and/or an automation webhook (n8n / Zapier). One success is enough.
+ */
 export async function POST(req: Request) {
   const { success } = await limiter(clientIp(req.headers));
   if (!success) return reply({ error: "Too many messages. Please try again later." }, 429);
@@ -36,9 +62,15 @@ export async function POST(req: Request) {
   if (company) return reply({ ok: true });
 
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  const hasWebhook = automationWebhookConfigured();
+
+  if (!apiKey && !hasWebhook) {
     if (process.env.NODE_ENV !== "production") {
-      console.info("[contact] RESEND_API_KEY not set. Message not sent:", { name, email, subject });
+      console.info("[contact] No delivery channel configured. Message not sent:", {
+        name,
+        email,
+        subject,
+      });
       return reply({ ok: true });
     }
     return reply(
@@ -47,25 +79,24 @@ export async function POST(req: Request) {
     );
   }
 
-  try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
-      to: process.env.CONTACT_TO_EMAIL ?? profile.email,
-      replyTo: email,
-      subject: `[Portfolio] ${subject}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
-    });
-    if (error) {
-      console.error("[contact] Resend error", error);
-      return reply(
-        { error: "The email service failed. Please try again or email me directly." },
-        502,
-      );
-    }
-    return reply({ ok: true });
-  } catch (err) {
-    console.error("[contact] Unexpected error", err);
-    return reply({ error: "Something went wrong. Please try again." }, 500);
-  }
+  const results = await Promise.all([
+    apiKey ? sendEmail(apiKey, { name, email, subject, message }) : Promise.resolve(false),
+    hasWebhook
+      ? sendToAutomation({
+          event: "contact.submitted",
+          name,
+          email,
+          subject,
+          message,
+          submittedAt: new Date().toISOString(),
+          source: "portfolio",
+        })
+      : Promise.resolve(false),
+  ]);
+
+  if (results.some(Boolean)) return reply({ ok: true });
+  return reply(
+    { error: "The message couldn't be delivered. Please try again or email me directly." },
+    502,
+  );
 }

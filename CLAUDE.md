@@ -23,7 +23,7 @@ Full plan: [docs/PLAN.md](docs/PLAN.md).
 ## Stack
 
 Next.js 16 (App Router, Turbopack) · React 19.2 · TypeScript strict · Tailwind CSS v4 · shadcn/ui ·
-`motion` · Lenis · React Three Fiber + drei (custom shaders) · `@xyflow/react` · Velite (MDX) ·
+`motion` · Lenis · React Three Fiber + drei (custom shaders) · `@xyflow/react` · `@next/mdx` ·
 `@anthropic-ai/sdk` (Claude Haiku) · Resend + Zod · Upstash Ratelimit (in-memory fallback) · Vercel.
 
 ## Folder map (target)
@@ -112,5 +112,5 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 - [x] 4. Signature features: Neural Core, role rotator, animated diagrams for workflows + projects,
       /automations gallery, terminal
 - [x] 5. AI assistant + CV ranker on Claude (needs ANTHROPIC_API_KEY to go live)
-- [ ] 6. Projects & research (Velite MDX)
+- [x] 6. Projects & research: /projects archive + 14 MDX case studies, /research (13 paper notes + 5 draft domain notes)
 - [ ] 7. Polish & ship: contact, SEO/OG, perf + a11y, deploy

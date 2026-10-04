@@ -1,0 +1,27 @@
+{/* Client work: keep it anonymized. */}
+
+## The problem
+
+Sales reps walk into calls under-prepared because researching a prospect takes time they don't have. A brief only helps if it arrives before the call, in a format people actually open.
+
+## What I built
+
+An n8n workflow that turns one form submission into a researched call brief, delivered as **PDF and DOCX** attachments by email.
+
+## How it works
+
+<Diagram />
+
+- **Research and draft:** the form payload is normalized, and a **single Claude call** researches the prospect and drafts the brief. One well-structured call kept the workflow simple and fast.
+- **QA and conversion:** the output is extracted, run through QA checks and converted to PDF and DOCX.
+- **Delivery:** the brief is emailed with both attachments, and the form gets a response.
+
+## Results
+
+Every booked call gets a consistent, researched brief without anyone having to write it.
+
+{/* TODO (owner): add numbers if you can share them. */}
+
+## What I'd do next
+
+Feed call outcomes back into the brief prompt (see the [LLM Prompt Feedback Loop](/projects/prompt-feedback-loop)) so briefs focus on what actually moves deals.

@@ -49,6 +49,22 @@ export const sections = {
   },
 } as const satisfies Record<string, SectionCopy>;
 
+/** /projects archive header. */
+export const projectsPage = {
+  eyebrow: "Archive",
+  title: "All projects",
+  description:
+    "Production automations, AI apps and ML models. Filter by domain or technology, and open any project for the full case study with its animated architecture.",
+} as const satisfies SectionCopy;
+
+/** /research index header. */
+export const researchPage = {
+  eyebrow: "Research",
+  title: "Notes & papers",
+  description:
+    "Short explainers of the papers behind my work (Transformers, BERT, RAG, LoRA and more), each with why it matters to what I build, plus notes on the domains I'm exploring.",
+} as const satisfies SectionCopy;
+
 /** "Ask Ammar" chat widget copy. */
 export const chatCopy = {
   launcher: "Ask Ammar",

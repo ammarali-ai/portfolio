@@ -1,0 +1,69 @@
+{
+  "name": "Portfolio contact → Discord alert",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "portfolio-contact",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0b6f4c1e-2a51-4a0f-9f8e-1c2d3e4f5a01",
+      "name": "Contact webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "7d1c2b3a-4e5f-4a6b-8c9d-0e1f2a3b4c5d"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Set this to the same value as AUTOMATION_WEBHOOK_SECRET on the website.\nconst SECRET = 'CHANGE_ME';\n\nconst item = $input.first().json;\nconst headers = item.headers || {};\nif (SECRET !== 'CHANGE_ME' && headers['x-webhook-secret'] !== SECRET) {\n  throw new Error('Invalid webhook secret');\n}\n\nconst b = item.body || {};\nconst clip = (s, n) => String(s || '').slice(0, n);\nconst name = clip(b.name, 200);\nconst email = clip(b.email, 200);\nconst subject = clip(b.subject, 200);\nconst message = clip(b.message, 1500);\n\nreturn [{\n  json: {\n    name,\n    email,\n    subject,\n    message,\n    submittedAt: b.submittedAt || new Date().toISOString(),\n    discordContent: `📬 **New portfolio message**\\n**From:** ${name} (${email})\\n**Subject:** ${subject}\\n\\n${message}`,\n  },\n}];"
+      },
+      "id": "1c7e5d2f-3b62-4b1a-8a9f-2d3e4f5a6b02",
+      "name": "Check secret & format",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/REPLACE_WITH_YOUR_DISCORD_WEBHOOK",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ content: $json.discordContent, allowed_mentions: { parse: [] } }) }}",
+        "options": {}
+      },
+      "id": "2d8f6e3a-4c73-4c2b-9b0a-3e4f5a6b7c03",
+      "name": "Post to Discord",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"ok\": true }",
+        "options": {}
+      },
+      "id": "3e9a7f4b-5d84-4d3c-8c1b-4f5a6b7c8d04",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [720, 0]
+    }
+  ],
+  "connections": {
+    "Contact webhook": {
+      "main": [[{ "node": "Check secret & format", "type": "main", "index": 0 }]]
+    },
+    "Check secret & format": {
+      "main": [[{ "node": "Post to Discord", "type": "main", "index": 0 }]]
+    },
+    "Post to Discord": {
+      "main": [[{ "node": "Respond OK", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": { "executionOrder": "v1" }
+}

@@ -1,0 +1,11 @@
+## Why it matters
+
+Plain SGD is finicky — pick the wrong learning rate and training either explodes or crawls. Adam combines **momentum** (smoothing gradients over time) with **per-parameter adaptive learning rates** (RMSProp-style), giving you a well-behaved optimizer that works out-of-the-box on a huge range of problems.
+
+## Core idea
+
+Keep running estimates of the first and second moments of the gradient (mean and uncentered variance). Use them to compute an adaptive step for each parameter, with bias correction so early training steps aren't artificially small.
+
+## Why I care
+
+Adam is the default optimizer in Keras, the framework behind my rice-leaf and cotton-crop classifiers. Knowing _why_ it usually just works is what helps when a training run stops converging and the loop needs debugging.

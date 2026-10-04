@@ -1,0 +1,11 @@
+## Why it matters
+
+Wei and colleagues at Google showed that simply prepending a few worked examples with intermediate reasoning steps (rather than jumping straight to answers) dramatically boosted LLM performance on arithmetic, commonsense, and symbolic reasoning tasks. The improvement wasn't subtle — GSM8K math accuracy jumped from 18% to 57% on PaLM 540B.
+
+## Core idea
+
+Give the model examples of the _reasoning process_, not just input-output pairs. The model learns in-context that it should produce intermediate steps before the final answer, and the act of generating those steps seems to engage capabilities that a direct-answer prompt leaves dormant.
+
+## Why I care
+
+In my n8n automations I structure LLM prompts step by step ("consider X first, then Y, then return a JSON decision") whenever Claude has to triage a lead or choose a workflow branch. It is one of the prompting techniques I use most.

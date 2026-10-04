@@ -1,0 +1,23 @@
+## The problem
+
+Adding new team members to the team's Discord server was a manual step: share an invite, check who joined, record their details. It's small, but it's error-prone and easy to forget.
+
+## What I built
+
+A one-click onboarding flow in n8n built on **Discord OAuth2**, plus a companion form flow that records new members in a data table.
+
+## How it works
+
+<Diagram />
+
+- **Token exchange:** the OAuth2 redirect hits a webhook, and the workflow exchanges the authorisation code for an access token.
+- **Join the server:** it reads the user's Discord profile and adds them to the server.
+- **Errors:** each step that can fail returns a clear error response instead of a blank page.
+
+## Results
+
+Joining the team server became a single click for new members, with their details recorded automatically.
+
+## What I'd do next
+
+Assign roles automatically based on the team a new member joins.

@@ -1,0 +1,29 @@
+## The problem
+
+Misinformation spreads across languages, and most tooling only works in English. Pakistan's media landscape mixes English and Urdu, so a useful classifier has to handle more than one language.
+
+## What I built
+
+A multilingual NLP system that classifies news text as **real or fake** in **English, Urdu and Spanish**, built end-to-end in Python with TensorFlow, Scikit-learn and NLP libraries.
+
+## How it works
+
+<Diagram />
+
+Text is cleaned and preprocessed, then classified with two complementary approaches:
+
+- **Multilingual BERT** (`bert-base-multilingual-cased`, loaded with Hugging Face Transformers): a transformer that understands words in context across languages.
+- **An SVM:** a fast classical model on engineered text features.
+
+Careful preprocessing and feature engineering mattered as much as the model choice.
+
+## Results
+
+- **90% accuracy** classifying real vs. fake news.
+- Works across three languages instead of English only.
+
+{/* TODO (owner): add the dataset sizes per language and per-model scores if you have them. */}
+
+## What I'd do next
+
+Explain _why_ an article was flagged (highlighting the phrases that drove the decision), and track how the model holds up on new topics over time. The same approach could help monitor misinformation during emergencies.

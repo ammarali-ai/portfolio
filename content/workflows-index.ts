@@ -19,6 +19,7 @@ export const workflowCategories: readonly WorkflowCategory[] = [
     ],
     flagships: [
       "monitoring",
+      "task-event-router",
       "meeting-notes-main",
       "meeting-notes-digest",
       "meeting-notes-errors",
@@ -76,7 +77,8 @@ export const workflowCategories: readonly WorkflowCategory[] = [
       "Customer support workflow",
       "Restaurant bookings support (demo)",
       "Invoice workflow",
+      "This site's contact form → n8n / Zapier → Discord",
     ],
-    flagships: [],
+    flagships: ["portfolio-contact"],
   },
 ];

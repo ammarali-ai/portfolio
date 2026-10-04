@@ -1,0 +1,31 @@
+## The problem
+
+A team ran its work on a task board but talked in Discord. Status changes, comments and blockers lived on the board, so people either kept checking it or missed things. Updates were posted by hand, and a blocked task could sit unnoticed.
+
+## What I built
+
+A production n8n system that listens to task events in real time and brings them to where the team already is:
+
+- **New task:** the assignee gets a direct message straight away.
+- **Status changes:** progress updates are posted to the team channel.
+- **Comments:** everyone involved in the task is notified.
+- **Blockers:** when an assignee flags a blocker, the task creator and their manager are alerted immediately.
+- **Milestones:** team-wide announcements when major work lands.
+
+## How it works
+
+<Diagram />
+
+Events arrive over a secure webhook. Every payload is validated first, and invalid events go to error handling instead of silently disappearing. Valid events are mapped to the right people (assignee, creator, manager) from a data table, analysed, and delivered as Discord messages.
+
+## Results
+
+- Status updates no longer have to be posted by hand.
+- Blockers reach the right people as soon as they're flagged, not when someone next checks the board.
+- The team has a single source of truth in the place it already chats.
+
+{/* TODO (owner): add any numbers you have, e.g. alerts per day or response time on blockers. */}
+
+## What I'd do next
+
+Daily digests per person, and a small dashboard of open blockers by age.

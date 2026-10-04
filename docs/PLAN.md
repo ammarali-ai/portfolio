@@ -57,7 +57,7 @@ Audit findings that shape the plan:
 
 - **Framework and UI:** Next.js 16 + TypeScript strict, Tailwind v4 + shadcn/ui, `motion` (Framer Motion), Lenis
 - **3D and diagrams:** R3F + drei with custom shaders (sprite glow instead of post-processing bloom, which breaks transparent canvases); `@xyflow/react` (React Flow)
-- **Content:** Velite (typed MDX for projects/research)
+- **Content:** `@next/mdx` with typed registries (Velite dropped: `@next/mdx` is first-party and Turbopack-native)
 - **AI and backend:** `@anthropic-ai/sdk` (Claude Haiku), Resend + Zod, Upstash Ratelimit (falls back to in-memory)
 - **Hosting:** Vercel + `@vercel/analytics`, built-in sitemap/robots
 
@@ -107,7 +107,7 @@ public/img/me.jpg, public/resume.pdf
    - `/api/chat` streams from Claude Haiku, grounded in `content/knowledge.md`, refuses off-topic requests, rate-limited.
    - Port the CV ranker as a `/tools/cv-ranker` demo on Claude.
 6. **Projects & research**:
-   - Velite MDX routes with filters.
+   - MDX routes (`@next/mdx`) with filters.
    - Case-study template: Problem → Approach → Architecture → Results → Stack → Links.
    - Seed content: Call Analyzer, Meeting Notes Bot, Monitoring & Alert System, Rice Leaf, Cotton, Fake News, LangGraph project, and one draft research note per domain.
    - Recover the old blog posts.

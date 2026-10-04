@@ -1,0 +1,24 @@
+## The problem
+
+Job seekers can't see how an applicant tracking system reads their CV against a specific role, so they guess at which keywords and experience to emphasise.
+
+## What I built
+
+A live tool on this site: paste a CV and a job description, and **Claude** returns a match score, the skills that line up, the requirements that are missing, and concrete suggestions. [Try it here](/tools/cv-ranker).
+
+## How it works
+
+<Diagram />
+
+- **Limits first:** inputs are validated and size-limited, and each visitor is rate-limited to keep costs predictable.
+- **Structured output:** Claude answers in a **schema-validated JSON format** (structured outputs), so the page never has to parse free text. Scores and list lengths are clamped on the server.
+- **Untrusted input:** the CV and job description are treated as data. Instructions hidden inside them are ignored.
+- **Privacy:** nothing is stored, and CV text is never logged.
+
+## Results
+
+A useful, honest answer in seconds. The suggestions are told never to invent experience the CV doesn't show.
+
+## What I'd do next
+
+Highlight the exact phrases in the CV that matched or were missing, and let users compare against several job descriptions at once.

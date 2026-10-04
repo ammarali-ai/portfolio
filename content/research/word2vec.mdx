@@ -1,0 +1,11 @@
+## Why it matters
+
+Before 2013, NLP relied on sparse bag-of-words features — one dimension per vocabulary word, no sense of meaning between them. Word2Vec trained compact, dense vectors where semantically related words cluster together and analogies become arithmetic. It was the first embedding approach to really scale.
+
+## Core idea
+
+Two lightweight objectives: **Skip-gram** (predict surrounding words from a center word) and **CBOW** (predict a center word from its context). Trained on billions of tokens with negative sampling, you get 200–300 dimensional vectors that capture surprising amounts of linguistic structure.
+
+## Why I care
+
+Word2Vec is where dense text representations started. My **Fake News Detection** project pairs BERT with a classical SVM, and the path from Word2Vec to contextual embeddings explains when a simple classical model is enough and when a transformer earns its cost.

@@ -8,7 +8,7 @@ Personal portfolio of an AI / AI-Automation / ML engineer. It shows working AI r
 - an ML model playground
 - a terminal easter egg
 
-> **Status:** Phases 1–5 of 7 are done (setup, foundation, core sections, signature features, AI features). See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
+> **Status:** Phases 1–6 of 7 are done (setup, foundation, core sections, signature features, AI features, projects & research). See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
 > The v1 site (Gemini chat + admin panel) is preserved on `main` until v2 ships.
 
 ## Tech stack
@@ -19,7 +19,7 @@ Personal portfolio of an AI / AI-Automation / ML engineer. It shows working AI r
 | Styling       | Tailwind CSS v4, shadcn/ui, `next-themes`                             |
 | Motion & 3D   | `motion`, Lenis, React Three Fiber, drei (custom shaders, no post-FX) |
 | Diagrams      | `@xyflow/react` (React Flow)                                          |
-| Content       | Typed `content/*.ts` + MDX via Velite                                 |
+| Content       | Typed `content/*.ts` + MDX via `@next/mdx` (case studies, research)   |
 | AI            | `@anthropic-ai/sdk` (Claude Haiku), streamed from a Route Handler     |
 | Contact       | Resend + Zod                                                          |
 | Rate limiting | Upstash Ratelimit (in-memory fallback)                                |
@@ -70,16 +70,18 @@ Without keys, the site still runs. AI and contact features show a friendly "not 
 
 All text lives in `/content`. Components never hard-code copy. Types are in [content/schema.ts](content/schema.ts).
 
-| What                                             | Where                                                     |
-| ------------------------------------------------ | --------------------------------------------------------- |
-| Name, roles, links, photo                        | `content/profile.ts`                                      |
-| Stats strip                                      | `content/stats.ts` (every number has a `source`)          |
-| Experience / education / skills / certifications | `content/*.ts`                                            |
-| Research domains (match the 3D nodes)            | `content/domains.ts`                                      |
-| Projects (case studies)                          | `content/projects/*.mdx`                                  |
-| Research notes                                   | `content/research/*.mdx` (`draft: true` hides a post)     |
-| Automation gallery                               | `content/workflows-index.ts` + `content/workflows/*.json` |
-| AI assistant knowledge                           | `content/knowledge.md`                                    |
+| What                                             | Where                                                                                     |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| Name, roles, links, photo                        | `content/profile.ts`                                                                      |
+| Stats strip                                      | `content/stats.ts` (every number has a `source`)                                          |
+| Experience / education / skills / certifications | `content/*.ts`                                                                            |
+| Research domains (match the 3D nodes)            | `content/domains.ts`                                                                      |
+| Projects (cards + archive)                       | `content/projects.ts` (title, impact, tech, links, diagram)                               |
+| Case study text (one per project)                | `content/case-studies/<slug>.mdx` (use `<Diagram />` for the animation)                   |
+| Research posts                                   | `content/research.ts` (list) + `content/research/<slug>.mdx` (`draft: true` hides a post) |
+| Contact automation (n8n / Zapier)                | `automations/README.md` + `automations/n8n/*.json`                                        |
+| Automation gallery                               | `content/workflows-index.ts` + `content/workflows/*.json`                                 |
+| AI assistant knowledge                           | `content/knowledge.md`                                                                    |
 
 **Honesty rule:** only real, verifiable facts. Use `TODO:` for anything unknown.
 
