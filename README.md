@@ -1,126 +1,103 @@
-# Muhammad Ammar Ali — Portfolio
+# Muhammad Ammar Ali: Portfolio v2
 
-A premium personal portfolio for an AI Automation Engineer. Built with Next.js 15, TypeScript, Tailwind CSS, Framer Motion, Gemini AI, and Resend. Content lives in markdown files. **100% free stack** — no paid services.
+Personal portfolio of an AI / AI-Automation / ML engineer. It shows working AI rather than just listing skills:
 
-## Features
+- a 3D neural-network hero
+- an "Ask Ammar" assistant grounded in his resume
+- real n8n workflows rendered as animated diagrams
+- an ML model playground
+- a terminal easter egg
 
-- Sleek dark/light dev portfolio with glassmorphism + gradient accents
-- **11 pages**: Home, About, Projects, Project detail, Skills, Experience, Certifications, Blog, Blog detail, CV Ranker tool, Contact, Resume
-- **Markdown-driven content** — edit `content/*.md` to update the site
-- **Admin panel** at `/admin` — password-gated, edits commit to GitHub via API
-- **Streaming "Ask my CV" Gemini chatbot** — real-time token streaming via SSE
-- **CV Ranker tool** — paste CV + JD, Gemini scores the match and suggests fixes
-- **Animated signature logo** using Caveat font
-- **GitHub contribution graph** live on home page
-- **"Now" section** — one-line live status from `content/now.md`
-- **Testimonials section** — pulls from `content/testimonials.md`, hides if empty
-- **Animated stats counter** — 4 KPIs counting up on scroll
-- **9 blog posts** on AI research papers (Transformer, BERT, GPT-3, Diffusion, LoRA, CoT, RAG, etc.)
-- **Blog shuffle + research portal links** (arXiv, Papers with Code, Google Scholar, HF)
-- **Custom animated 404** page
-- **Auto-generated OG images** at root, blog, and project levels via `next/og`
-- Contact form powered by Resend (free tier)
-- Mobile-first responsive, smooth animations, dark/light theme toggle
-- Complete SEO metadata + sitemap + robots
+> **Status:** Phase 1 of 7 (setup) is done. See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
+> The v1 site (Gemini chat + admin panel) is preserved on `main` until v2 ships.
 
-## Quick Start
+## Tech stack
+
+| Area          | Choice                                                            |
+| ------------- | ----------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Turbopack), React 19, TypeScript (strict) |
+| Styling       | Tailwind CSS v4, shadcn/ui, `next-themes`                         |
+| Motion & 3D   | `motion`, Lenis, React Three Fiber, drei, postprocessing          |
+| Diagrams      | `@xyflow/react` (React Flow)                                      |
+| Content       | Typed `content/*.ts` + MDX via Velite                             |
+| AI            | `@anthropic-ai/sdk` (Claude Haiku), streamed from a Route Handler |
+| Contact       | Resend + Zod                                                      |
+| Rate limiting | Upstash Ratelimit (in-memory fallback)                            |
+| Hosting       | Vercel + `@vercel/analytics`                                      |
+
+## Getting started
+
+Requires **Node.js ≥ 20.9**.
 
 ```bash
+git clone https://github.com/ammarali-ai/portfolio.git
+cd portfolio
+git checkout v2
 npm install
-cp .env.example .env.local
-npm run dev
+cp .env.example .env.local   # then fill in keys (optional for local UI work)
+npm run dev                  # http://localhost:3000
 ```
 
-Open http://localhost:3000.
+> Keep the project **outside OneDrive/Dropbox**. Syncing `node_modules` and `.git` corrupts them.
 
-The site **runs without any env vars** — chatbot, contact form, and admin will simply be disabled (or log to console) until you fill in the keys. This makes local dev frictionless.
+### Scripts
 
-## Updating Content
+| Command                       | What it does                      |
+| ----------------------------- | --------------------------------- |
+| `npm run dev`                 | Dev server                        |
+| `npm run build` / `npm start` | Production build / serve          |
+| `npm run lint`                | ESLint                            |
+| `npm run typecheck`           | `tsc --noEmit`                    |
+| `npm run format`              | Prettier + Tailwind class sorting |
 
-Three options:
+## Environment variables
 
-1. **Edit a markdown file in your editor** → `git push` → Vercel redeploys.
-2. **Use the admin panel** at `/admin` → log in → edit in browser → save.
-3. **Edit on github.com** directly → commit → Vercel redeploys.
+See [.env.example](.env.example). All keys are **server-only**.
 
-See `ADMIN_GUIDE.md` for details.
+| Variable                            | Needed for                                  | Required                |
+| ----------------------------------- | ------------------------------------------- | ----------------------- |
+| `NEXT_PUBLIC_SITE_URL`              | Canonical URLs, sitemap, OG images          | prod                    |
+| `ANTHROPIC_API_KEY`                 | Ask Ammar assistant, CV ranker              | for AI features         |
+| `ANTHROPIC_MODEL`                   | Model override (default `claude-haiku-4-5`) | no                      |
+| `RESEND_API_KEY`                    | Contact form email                          | for contact             |
+| `RESEND_FROM_EMAIL`                 | Verified sender address                     | for contact             |
+| `CONTACT_TO_EMAIL`                  | Where contact messages go                   | for contact             |
+| `UPSTASH_REDIS_REST_URL` / `_TOKEN` | Distributed rate limiting                   | no (in-memory fallback) |
 
-## Adding a Project
+Without keys, the site still runs. AI and contact features show a friendly "not configured" message.
 
-1. Create `content/projects/<slug>.md` with frontmatter:
-   ```yaml
-   ---
-   title: "Your Project"
-   slug: "your-project"
-   summary: "One-line"
-   tags: ["AI"]
-   tech: ["Python"]
-   github: ""
-   demo: ""
-   featured: false
-   order: 5
-   ---
-   ```
-2. Write the body in markdown.
-3. The project automatically appears on `/projects` and gets a detail page.
+## Editing content
 
-## Stack
+All text lives in `/content`. Components never hard-code copy. Types are in [content/schema.ts](content/schema.ts).
 
-| | |
-|--|--|
-| Framework | Next.js 15 (App Router) + TypeScript |
-| Styling | Tailwind CSS v3 + custom CSS variables for theming |
-| Animation | Framer Motion |
-| Content | Markdown + frontmatter (`gray-matter` + `remark`) |
-| AI | Google Gemini (`gemini-1.5-flash`) — free tier |
-| Email | Resend — free tier (3,000/mo) |
-| Auth | bcrypt + JWT cookie session (`jose`) |
-| Hosting | Vercel free Hobby tier |
-| **Total cost** | **$0/month** |
+| What                                             | Where                                                     |
+| ------------------------------------------------ | --------------------------------------------------------- |
+| Name, roles, links, photo                        | `content/profile.ts`                                      |
+| Stats strip                                      | `content/stats.ts` (every number has a `source`)          |
+| Experience / education / skills / certifications | `content/*.ts`                                            |
+| Research domains (match the 3D nodes)            | `content/domains.ts`                                      |
+| Projects (case studies)                          | `content/projects/*.mdx`                                  |
+| Research notes                                   | `content/research/*.mdx` (`draft: true` hides a post)     |
+| Automation gallery                               | `content/workflows-index.ts` + `content/workflows/*.json` |
+| AI assistant knowledge                           | `content/knowledge.md`                                    |
 
-## Token / Quota Safety
+**Honesty rule:** only real, verifiable facts. Use `TODO:` for anything unknown.
 
-The Gemini chat route has **strict caps** to stay safely inside the free tier:
-- `maxOutputTokens: 384`
-- Question length capped at 500 chars
-- CV context trimmed to 6000 chars
-- Per-IP rate limit: 8 messages / minute
-- Contact form: 5 messages / 10 min per IP
+### Adding an n8n workflow to the gallery
 
-## Scripts
+1. In n8n: open the workflow, then **⋯ → Download** to get the JSON.
+2. **Remove credentials and secrets**: delete every `credentials` block and any API keys, webhook IDs, emails or
+   tokens in node `parameters`.
+3. Save it as `content/workflows/<slug>.json` and add the slug to a category's `flagships` in
+   `content/workflows-index.ts`.
 
-```bash
-npm run dev      # local dev
-npm run build    # production build (run before deploying)
-npm start        # serve production build
-npm run lint     # eslint
-```
+## Deploying to Vercel
 
-## Deploy
-
-See `DEPLOYMENT.md`.
-
-## Project Structure
-
-```
-app/             Next.js App Router pages
-├── (home)       /
-├── about/
-├── projects/    /projects + /projects/[slug]
-├── skills/
-├── experience/
-├── certifications/
-├── contact/
-├── resume/
-├── admin/       password-gated CMS
-└── api/         contact, chat, admin routes
-
-components/      React components
-content/         markdown content (edit to update site)
-lib/             content loader, Gemini, GitHub API, auth
-public/          images, resume PDF
-```
+1. Push to GitHub, then go to vercel.com → **Add New Project** and import `ammarali-ai/portfolio`.
+2. Framework preset: Next.js (auto). Add the environment variables above.
+3. The production branch is `main`. Branch `v2` gets preview deployments until it's merged.
+4. Optional: add a custom domain and set `NEXT_PUBLIC_SITE_URL` to it.
 
 ## License
 
-Personal use. © Muhammad Ammar Ali.
+Code is MIT. Personal content (text, photos, resume) © Muhammad Ammar Ali, all rights reserved.

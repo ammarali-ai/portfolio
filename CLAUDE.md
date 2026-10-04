@@ -1,123 +1,95 @@
-# CLAUDE.md — Project Context
+@AGENTS.md
 
-This file gives any AI assistant (Claude Code, Cursor, etc.) the context needed to work on this project effectively.
+# CLAUDE.md: project context
+
+Context for AI coding assistants (Claude Code, Cursor, …) working on this repo.
 
 ## Owner
-**Muhammad Ammar Ali** — AI Automation Engineer @ Metaviz, BS Artificial Intelligence (Islamia University of Bahawalpur).
-- Email: muhammadammaralibhutta@gmail.com
-- GitHub: ammarali-ai
-- Stack expertise: Python, TensorFlow, Keras, n8n, Claude/Claude Code, automation pipelines
 
-## What This Project Is
-A personal portfolio website that showcases Ammar's AI/ML and automation work, an embedded "Ask my CV" Gemini chatbot, and a no-code admin panel that lets him update content from any browser.
+**Muhammad Ammar Ali**, AI Engineer · AI Automation Engineer · ML Engineer, based in Lahore, Pakistan.
 
-## Tech Stack
-- **Framework:** Next.js 15 (App Router) + TypeScript + React 18
-- **Styling:** Tailwind CSS v3 (custom dark/light theme via CSS variables)
-- **Animation:** Framer Motion
-- **Content storage:** Markdown files in `/content/` (parsed with `gray-matter` + `remark`)
-- **AI chatbot:** Google Gemini API (`gemini-1.5-flash`) — free tier
-- **Contact form:** Resend API — free tier
-- **Admin auth:** bcrypt-hashed password + JWT session cookie (`jose`)
-- **Admin storage:** Edits commit to GitHub via REST API → Vercel auto-redeploys
-- **Hosting:** Vercel (free Hobby tier)
-- **Cost:** $0/month, no paid services
+- Email: muhammadammaralibhutta@gmail.com · GitHub: `ammarali-ai` · LinkedIn: `ammar-ali-ai`
+- Current role: AI Automation Engineer (CMIT Intern) at Metaviz. Stack: n8n, Claude API, Python, TensorFlow.
 
-## Folder Map
+## What this is
+
+Portfolio **v2**. It proves engineering ability by _showing working AI_: a 3D "Neural Core" hero, a live
+"Ask Ammar" assistant, n8n workflows rendered as animated React Flow diagrams, a model playground and a terminal
+easter egg. The depth reference is nadeem.cloud (stats, categories, featured projects, timeline, tech arsenal), but the visual identity must be our own.
+v1 (Gemini chat, markdown and an admin panel) lives in git history before the `v2` work.
+
+Full plan: [docs/PLAN.md](docs/PLAN.md).
+
+## Stack
+
+Next.js 16 (App Router, Turbopack) · React 19.2 · TypeScript strict · Tailwind CSS v4 · shadcn/ui ·
+`motion` · Lenis · React Three Fiber + drei + postprocessing · `@xyflow/react` · Velite (MDX) ·
+`@anthropic-ai/sdk` (Claude Haiku) · Resend + Zod · Upstash Ratelimit (in-memory fallback) · Vercel.
+
+## Folder map (target)
+
 ```
-my_portfolio/
-├── app/                        # Next.js App Router
-│   ├── page.tsx                # Home (hero, now, stats, projects, experience, github, testimonials, cta)
-│   ├── about/                  # About + soft skills
-│   ├── projects/[slug]/        # Project detail with OG image generator
-│   ├── skills/
-│   ├── experience/
-│   ├── certifications/
-│   ├── blog/[slug]/            # Research posts with OG image generator
-│   ├── tools/cv-ranker/        # CV Ranker interactive tool
-│   ├── contact/
-│   ├── resume/
-│   ├── admin/                  # Password-gated CMS
-│   ├── api/                    # chat (streaming), contact, rank-cv, admin routes
-│   ├── not-found.tsx           # Custom animated 404
-│   ├── opengraph-image.tsx     # Root OG
-│   └── layout.tsx
-├── components/                 # React components (hero, nav, project-card, etc.)
-│   └── admin/
-├── content/                    # ← ALL content lives here as markdown
-│   ├── profile.md              # name, role, socials, avatar
-│   ├── about.md
-│   ├── skills.md
-│   ├── soft-skills.md
-│   ├── experience.md
-│   ├── certifications.md
-│   ├── education.md
-│   ├── conferences.md
-│   ├── now.md                  # "Currently working on" one-liner
-│   ├── testimonials.md         # LinkedIn recs (auto-hides if empty)
-│   ├── projects/               # one .md per project
-│   └── blog/                   # one .md per research post
-├── lib/                        # content loader, gemini, github API, auth
-└── public/                     # images, resume PDF, favicon
+app/                     routes: /, /projects, /projects/[slug], /research, /research/[slug],
+                         /automations, /resume, /tools/cv-ranker
+app/api/                 chat (streaming), contact, rank-cv
+components/              layout/ sections/ three/ flow/ chat/ terminal/ ui/ (shadcn)
+content/schema.ts        TYPES for all content (start here)
+content/*.ts             profile, experience, skills, certifications, education, stats, domains, workflows-index
+content/projects/*.mdx   case studies     content/research/*.mdx   notes / paper explainers
+content/workflows/*.json n8n exports (credentials stripped)
+content/knowledge.md     grounding text for the AI assistant
+lib/                     anthropic.ts, ratelimit.ts, n8n-to-flow.ts, utils.ts
+docs/PLAN.md             phased plan + status
 ```
 
-## Key Features
-- **Streaming chatbot** — /api/chat uses Gemini generateContentStream over SSE
-- **CV Ranker** — /tools/cv-ranker → Gemini-powered ATS match scoring
-- **GitHub graph** — live contribution chart on home (ghchart.rshah.org)
-- **OG images** — auto-generated at root, /blog/[slug], /projects/[slug] via next/og
-- **Custom 404** — /not-found with Framer Motion animation
-- **Admin panel** — password + GitHub API commits for markdown edits
-- **Signature logo** — animated Caveat-font signature component
-- **Token safety** — every AI route has input caps, output caps, and per-IP rate limits
+## Content rules (non-negotiable)
 
-## How To Update Site Content
-Three options, in order of simplicity:
+1. **The resume is the single source of truth.** Never invent numbers, clients, testimonials or links.
+   When something is missing, use a visible `TODO:` placeholder (or `null` + `needsVerification`).
+2. **No phone number** anywhere on the site or in committed files. Use email, LinkedIn and GitHub only.
+3. Describe each project **on its own terms** (what it does, dataset, accuracy, stack). Put speculative
+   framing such as "applicable to disaster management" in the separate `possibleApplications` line.
+4. State only what the code proves. Example: the Fake News repo uses TF-IDF + Multinomial NB (Streamlit),
+   while the resume says BERT + SVM. Confirm with the owner before publishing either.
+5. No empty "testimonials" section. Only add one when real quotes exist.
+6. All copy lives in `/content`; components only render it.
 
-1. **Edit a markdown file in VS Code** → `git push` → Vercel redeploys.
-2. **Use the admin panel** at `/admin` → log in → edit in the browser → save (commits to GitHub via API).
-3. **Directly edit on GitHub.com** → commit → Vercel redeploys.
+## Code conventions
 
-## How To Add a New Project
-1. Create `content/projects/<slug>.md` with frontmatter:
-   ```yaml
-   ---
-   title: "Project Title"
-   slug: "project-slug"
-   summary: "One-line description"
-   tags: ["AI", "NLP"]
-   tech: ["Python", "TensorFlow"]
-   github: "https://github.com/..."
-   demo: ""
-   featured: false
-   order: 5
-   ---
-   ```
-2. Add the body in markdown below the frontmatter.
-3. The project automatically appears on `/projects` and gets a detail page at `/projects/<slug>`.
+- No `any`. Prefer `readonly` arrays in content types. Server Components by default; add `"use client"` only
+  for interactivity (3D, flow, chat, terminal, theme toggle).
+- Small, reusable components. Colors come from CSS variables / Tailwind tokens only, never hard-coded hex values in components.
+- Respect `prefers-reduced-motion`: no 3D animation or heavy motion, static fallbacks instead.
+- 3D must never block LCP. Load it with `next/dynamic` (`ssr: false`) behind a lightweight poster.
+- Secrets are server-only (`ANTHROPIC_API_KEY`, `RESEND_API_KEY`, …). Never prefix them with `NEXT_PUBLIC_`.
+- Next 16 specifics: `params`/`searchParams` are async, `middleware` is renamed `proxy`, and lint runs through the ESLint CLI.
+  Check `node_modules/next/dist/docs/` before using an unfamiliar API.
 
-## Hard Rules (DO NOT VIOLATE)
-1. **Content rule:** All copy on the site must come from Ammar's CV unless he explicitly approves new content. No invented taglines, bios, or bullet points.
-2. **Free-tier rule:** Do not add any paid service, API, or dependency without his explicit approval. The whole stack is free for a reason.
-3. **Style rule:** The portfolio is a sleek dev portfolio. The Office Taskboard + Discord Automation is one of his SHOWCASE PROJECTS, NOT a UI inspiration. Do not turn the site into a task board.
-4. **No build pipeline gymnastics:** Keep it simple. Markdown in, HTML out. No exotic build tools.
+## Commands
 
-## Useful Commands
 ```bash
-npm install        # install deps
-npm run dev        # start dev server at localhost:3000
-npm run build      # production build (run before deploy to catch errors)
-npm run start      # serve production build locally
-npm run lint       # eslint check
+npm run dev          # local dev (Turbopack)
+npm run build        # production build
+npm run lint         # ESLint
+npm run typecheck    # tsc --noEmit
+npm run format       # Prettier (+ tailwind class sorting)
 ```
 
-## Required Env Vars
-See `.env.example`. The site will run without any env vars (chatbot/contact/admin will be disabled), so you can dev locally without setting anything up.
+Every phase must end with `lint`, `typecheck` and `build` all clean.
 
-## Deployment
-1. Push to `github.com/ammarali-ai/portfolio`
-2. Import to Vercel
-3. Set env vars from `.env.example`
-4. Deploy
+## Environment notes
 
-See `DEPLOYMENT.md` for the full step-by-step.
+- Develop in `C:\dev\my_portfolio`, a clone that lives outside OneDrive. OneDrive sync corrupted v1's `.git` and dropped files.
+  The OneDrive copy (`Desktop\my_portfolio`) is a source-only checkout for browsing; refresh it with `git pull`.
+- On this Windows machine Node may be missing from PATH in some shells. It lives in `C:\Program Files\nodejs`.
+- Git: work happens on branch `v2`; merge to `main` (the production branch) at Phase 7.
+
+## Phase status
+
+- [x] 1. Audit & setup: scaffold, deps, configs, content schema, docs
+- [ ] 2. Foundation: tokens, fonts, layout, navbar/footer, theme, Lenis, content files from resume
+- [ ] 3. Core sections (no 3D)
+- [ ] 4. Signature features: Neural Core, role rotator, n8n → React Flow, terminal
+- [ ] 5. AI assistant + CV ranker on Claude
+- [ ] 6. Projects & research (Velite MDX)
+- [ ] 7. Polish & ship: contact, SEO/OG, perf + a11y, deploy
