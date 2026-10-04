@@ -187,12 +187,12 @@ export const projects: readonly ProjectMeta[] = [
     impact:
       "Paste a CV and a job description and get a match score, missing skills and rewrite tips.",
     summary:
-      "An ATS-style matcher that returns strict JSON (score, matched and missing keywords, suggestions). Being rebuilt on Claude for this site.",
+      "An ATS-style matcher on this site: Claude compares a CV with a job description and returns schema-validated JSON (score, matched and missing skills, honest rewrite tips), with input limits and per-visitor rate limits.",
     tech: ["Next.js", "Claude API", "Zod"],
-    status: "in-progress",
+    status: "built",
     featured: false,
     date: "2026-10",
-    links: {},
+    links: { demo: "/tools/cv-ranker" },
     diagram: "cv-ranker",
   },
 ];

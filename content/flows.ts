@@ -333,7 +333,7 @@ const list: FlowSpec[] = [
     description:
       "A CV and job description go through size and rate limits, Claude scores the match as strict JSON, and the result is validated before display.",
     source: "architecture",
-    context: "Coming soon to this site",
+    context: "Live tool on this site",
     nodes: [
       { id: "input", label: "CV + job description", kind: "trigger" },
       { id: "limits", label: "Size + rate limits", kind: "logic" },

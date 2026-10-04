@@ -49,6 +49,34 @@ export const sections = {
   },
 } as const satisfies Record<string, SectionCopy>;
 
+/** "Ask Ammar" chat widget copy. */
+export const chatCopy = {
+  launcher: "Ask Ammar",
+  title: "Ask Ammar",
+  subtitle: "AI assistant · answers from this portfolio",
+  greeting:
+    "Hi! I can answer questions about Ammar's experience, projects and skills. What would you like to know?",
+  placeholder: "Ask about projects, skills, experience…",
+  suggestions: [
+    "What does Ammar build with n8n and Claude?",
+    "Tell me about the Call Analyzer",
+    "What ML projects has he done?",
+    "Is he open to new roles?",
+  ],
+  disclaimer:
+    "AI answers can be wrong. Messages go to Anthropic's API to generate a reply and aren't stored by this site.",
+} as const;
+
+/** /tools/cv-ranker page copy. */
+export const cvRankerCopy = {
+  eyebrow: "Live AI tool",
+  title: "CV Ranker",
+  description:
+    "Paste a CV and a job description. Claude scores the match, lists what lines up and what's missing, and suggests honest edits that make your real experience easier to see.",
+  privacy:
+    "Your text is sent to Anthropic's API to generate the score. This site doesn't store it.",
+} as const satisfies SectionCopy & { privacy: string };
+
 /** Heading for the compact list of non-featured projects under the bento grid. */
 export const moreProjectsTitle = "More projects";
 

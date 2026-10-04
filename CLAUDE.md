@@ -109,6 +109,6 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 - [x] 3. Core sections (no 3D)
 - [x] 4. Signature features: Neural Core, role rotator, animated diagrams for workflows + projects,
       /automations gallery, terminal
-- [ ] 5. AI assistant + CV ranker on Claude
+- [x] 5. AI assistant + CV ranker on Claude (needs ANTHROPIC_API_KEY to go live)
 - [ ] 6. Projects & research (Velite MDX)
 - [ ] 7. Polish & ship: contact, SEO/OG, perf + a11y, deploy

@@ -8,7 +8,7 @@ Personal portfolio of an AI / AI-Automation / ML engineer. It shows working AI r
 - an ML model playground
 - a terminal easter egg
 
-> **Status:** Phases 1–4 of 7 are done (setup, foundation, core sections, signature features). See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
+> **Status:** Phases 1–5 of 7 are done (setup, foundation, core sections, signature features, AI features). See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
 > The v1 site (Gemini chat + admin panel) is preserved on `main` until v2 ships.
 
 ## Tech stack
@@ -111,6 +111,27 @@ node labels (no client names) and `source: "n8n-anonymized"`.
 1. Open a copy of the Word resume and delete the phone number from the contact line.
 2. **File → Save As → PDF**, then replace `public/Muhammad-Ammar-Ali-Resume.pdf` (keep the filename).
 3. Check it: run `pdftotext <file> -` and search the output for your number. It must not appear.
+
+## AI features (Claude)
+
+| Feature            | Where                         | How it works                                                                                                                                                                                            |
+| ------------------ | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ask Ammar** chat | Floating button on every page | `/api/chat` streams Claude's answer as NDJSON. It's grounded only in the site's content: `lib/knowledge.ts` builds the knowledge base from `content/*.ts`, plus `content/knowledge.md` for extra facts. |
+| **CV Ranker**      | `/tools/cv-ranker`            | `/api/rank-cv` uses Claude structured outputs (Zod schema) to return a score, matched and missing skills, and suggestions.                                                                              |
+
+- **Model:** `claude-haiku-4-5` by default (fast and low-cost). Override with `ANTHROPIC_MODEL`.
+- **Turning it on:** add `ANTHROPIC_API_KEY` to `.env.local` (local) or the Vercel project settings. Without a key, both features show a friendly "not switched on yet" message.
+- **Cost guards:**
+
+  | Feature   | Per-visitor limits               | Per-message limits                                          |
+  | --------- | -------------------------------- | ----------------------------------------------------------- |
+  | Chat      | 10 messages/minute and 60/day    | 800 characters, 12 messages of history, 1,024 output tokens |
+  | CV Ranker | 5 runs per 10 minutes and 20/day | 12k-character CV, 6k-character job description              |
+
+  Add Upstash keys so limits hold across serverless instances.
+
+- **Safety:** the system prompt keeps the assistant on-topic and grounded, treats visitor text as untrusted, and never discusses anonymized client details. CV text is never logged.
+- **Editing what the assistant knows:** change the content files (it updates automatically) or `content/knowledge.md`.
 
 ## Deploying to Vercel
 
