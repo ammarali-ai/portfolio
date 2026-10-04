@@ -47,10 +47,11 @@ docs/PLAN.md             phased plan + status
 1. **The resume is the single source of truth.** Never invent numbers, clients, testimonials or links.
    When something is missing, use a visible `TODO:` placeholder (or `null` + `needsVerification`).
 2. **No phone number** anywhere on the site or in committed files. Use email, LinkedIn and GitHub only.
+   The public CV (`public/Muhammad-Ammar-Ali-Resume.pdf`) is a phone-free copy. Never replace it with the original.
 3. Describe each project **on its own terms** (what it does, dataset, accuracy, stack). Put speculative
    framing such as "applicable to disaster management" in the separate `possibleApplications` line.
-4. State only what the code proves. Example: the Fake News repo uses TF-IDF + Multinomial NB (Streamlit),
-   while the resume says BERT + SVM. Confirm with the owner before publishing either.
+4. When the resume and a code repo disagree, confirm with the owner before publishing. (Resolved
+   example: Fake News Detection is BERT + SVM per the owner; the local TF-IDF + NB repo is an older prototype.)
 5. No empty "testimonials" section. Only add one when real quotes exist.
 6. All copy lives in `/content`; components only render it.
 

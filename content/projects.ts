@@ -77,12 +77,11 @@ export const projects: readonly ProjectMeta[] = [
     slug: "fake-news-detection",
     title: "Fake News Detection",
     domain: "cybersecurity",
-    impact: "Multilingual news classifier reported at 90% accuracy.",
-    // TODO: confirm the model stack. Resume says BERT + SVM (English, Urdu, Spanish);
-    // the repo contains a TF-IDF + Multinomial NB Streamlit app with English and Urdu data.
+    impact: "Real-or-fake news classifier for English, Urdu and Spanish at 90% accuracy.",
+    // Stack confirmed by the owner (BERT + SVM). The older local repo copy is an earlier TF-IDF + NB prototype.
     summary:
-      "An NLP system that classifies news text as real or fake across languages, served through a Streamlit interface.",
-    tech: ["Python", "NLP", "Scikit-learn", "Streamlit"],
+      "A three-language NLP system (English, Urdu, Spanish) that classifies news text as real or fake, built with BERT and an SVM classifier and reaching 90% accuracy.",
+    tech: ["Python", "BERT", "SVM", "NLP"],
     status: "built",
     featured: true,
     date: "2024-10",

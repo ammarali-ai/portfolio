@@ -91,6 +91,14 @@ All text lives in `/content`. Components never hard-code copy. Types are in [con
 3. Save it as `content/workflows/<slug>.json` and add the slug to a category's `flagships` in
    `content/workflows-index.ts`.
 
+### Resume PDF
+
+`public/Muhammad-Ammar-Ali-Resume.pdf` is a **public copy with the phone number removed**. To update it:
+
+1. Open a copy of the Word resume and delete the phone number from the contact line.
+2. **File → Save As → PDF**, then replace `public/Muhammad-Ammar-Ali-Resume.pdf` (keep the filename).
+3. Check it: run `pdftotext <file> -` and search the output for your number. It must not appear.
+
 ## Deploying to Vercel
 
 1. Push to GitHub, then go to vercel.com → **Add New Project** and import `ammarali-ai/portfolio`.

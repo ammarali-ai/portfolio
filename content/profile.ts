@@ -23,8 +23,8 @@ export const profile: Profile = {
     src: "/img/me.png",
     alt: "Muhammad Ammar Ali in a yellow polo shirt, standing outdoors in front of green trees",
   },
-  // TODO: add public/resume.pdf (consider a copy without the phone number), then set "/resume.pdf".
-  resumeUrl: null,
+  // Public copy of the resume with the phone number removed (see README → "Resume PDF").
+  resumeUrl: "/Muhammad-Ammar-Ali-Resume.pdf",
 };
 
 export const siteNav: readonly NavItem[] = [

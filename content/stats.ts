@@ -31,8 +31,6 @@ export const stats: readonly Stat[] = [
   {
     value: 3,
     label: "Languages in NLP system",
-    source:
-      "Resume: Fake News Detection (English, Urdu, Spanish). Repo folders show english/ and urdu/ only",
-    needsVerification: true,
+    source: "Resume: Fake News Detection, BERT + SVM (English, Urdu, Spanish), confirmed by owner",
   },
 ];
