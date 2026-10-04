@@ -16,7 +16,7 @@ const format = (n: number) => Math.round(n).toLocaleString("en-US");
  */
 export function Counter({ value, suffix = "" }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -15% 0px" });
+  const inView = useInView(ref, { once: true });
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {

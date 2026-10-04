@@ -1,0 +1,172 @@
+{
+  "name": "Meeting Notes — Main",
+  "nodes": [
+    {
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook"
+    },
+    {
+      "name": "Validate Input",
+      "type": "n8n-nodes-base.function"
+    },
+    {
+      "name": "Fetch Discord Messages",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Parse Transcript",
+      "type": "n8n-nodes-base.function"
+    },
+    {
+      "name": "Chunk If Long",
+      "type": "n8n-nodes-base.if"
+    },
+    {
+      "name": "Call Gemini 1.5 Pro",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Parse Gemini Response",
+      "type": "n8n-nodes-base.function"
+    },
+    {
+      "name": "Build Discord Embed",
+      "type": "n8n-nodes-base.function"
+    },
+    {
+      "name": "Post Summary to Discord",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Create Thread",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Post Full Notes In Thread",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets"
+    },
+    {
+      "name": "Confirmation",
+      "type": "n8n-nodes-base.function"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validate Input"
+          }
+        ]
+      ]
+    },
+    "Validate Input": {
+      "main": [
+        [
+          {
+            "node": "Fetch Discord Messages"
+          }
+        ]
+      ]
+    },
+    "Fetch Discord Messages": {
+      "main": [
+        [
+          {
+            "node": "Parse Transcript"
+          }
+        ]
+      ]
+    },
+    "Parse Transcript": {
+      "main": [
+        [
+          {
+            "node": "Chunk If Long"
+          }
+        ]
+      ]
+    },
+    "Chunk If Long": {
+      "main": [
+        [
+          {
+            "node": "Call Gemini 1.5 Pro"
+          }
+        ],
+        [
+          {
+            "node": "Call Gemini 1.5 Pro"
+          }
+        ]
+      ]
+    },
+    "Call Gemini 1.5 Pro": {
+      "main": [
+        [
+          {
+            "node": "Parse Gemini Response"
+          }
+        ]
+      ]
+    },
+    "Parse Gemini Response": {
+      "main": [
+        [
+          {
+            "node": "Build Discord Embed"
+          }
+        ]
+      ]
+    },
+    "Build Discord Embed": {
+      "main": [
+        [
+          {
+            "node": "Post Summary to Discord"
+          }
+        ]
+      ]
+    },
+    "Post Summary to Discord": {
+      "main": [
+        [
+          {
+            "node": "Create Thread"
+          }
+        ]
+      ]
+    },
+    "Create Thread": {
+      "main": [
+        [
+          {
+            "node": "Post Full Notes In Thread"
+          }
+        ]
+      ]
+    },
+    "Post Full Notes In Thread": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets"
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Confirmation"
+          }
+        ]
+      ]
+    }
+  }
+}

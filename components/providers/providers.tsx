@@ -15,8 +15,7 @@ export function Providers({ children }: { children: ReactNode }) {
       disableTransitionOnChange
     >
       <MotionConfig reducedMotion="user">
-        <SmoothScroll />
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </MotionConfig>
     </ThemeProvider>
   );

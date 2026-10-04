@@ -8,22 +8,22 @@ Personal portfolio of an AI / AI-Automation / ML engineer. It shows working AI r
 - an ML model playground
 - a terminal easter egg
 
-> **Status:** Phases 1–3 of 7 (setup, foundation, core sections) are done. See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
+> **Status:** Phases 1–4 of 7 are done (setup, foundation, core sections, signature features). See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
 > The v1 site (Gemini chat + admin panel) is preserved on `main` until v2 ships.
 
 ## Tech stack
 
-| Area          | Choice                                                            |
-| ------------- | ----------------------------------------------------------------- |
-| Framework     | Next.js 16 (App Router, Turbopack), React 19, TypeScript (strict) |
-| Styling       | Tailwind CSS v4, shadcn/ui, `next-themes`                         |
-| Motion & 3D   | `motion`, Lenis, React Three Fiber, drei, postprocessing          |
-| Diagrams      | `@xyflow/react` (React Flow)                                      |
-| Content       | Typed `content/*.ts` + MDX via Velite                             |
-| AI            | `@anthropic-ai/sdk` (Claude Haiku), streamed from a Route Handler |
-| Contact       | Resend + Zod                                                      |
-| Rate limiting | Upstash Ratelimit (in-memory fallback)                            |
-| Hosting       | Vercel + `@vercel/analytics`                                      |
+| Area          | Choice                                                                |
+| ------------- | --------------------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Turbopack), React 19, TypeScript (strict)     |
+| Styling       | Tailwind CSS v4, shadcn/ui, `next-themes`                             |
+| Motion & 3D   | `motion`, Lenis, React Three Fiber, drei (custom shaders, no post-FX) |
+| Diagrams      | `@xyflow/react` (React Flow)                                          |
+| Content       | Typed `content/*.ts` + MDX via Velite                                 |
+| AI            | `@anthropic-ai/sdk` (Claude Haiku), streamed from a Route Handler     |
+| Contact       | Resend + Zod                                                          |
+| Rate limiting | Upstash Ratelimit (in-memory fallback)                                |
+| Hosting       | Vercel + `@vercel/analytics`                                          |
 
 ## Getting started
 
@@ -83,13 +83,26 @@ All text lives in `/content`. Components never hard-code copy. Types are in [con
 
 **Honesty rule:** only real, verifiable facts. Use `TODO:` for anything unknown.
 
-### Adding an n8n workflow to the gallery
+### Animated diagrams (workflows and projects)
+
+Every diagram is a `FlowSpec` in [content/flows.ts](content/flows.ts), animated with React Flow
+(nodes light up rank by rank while data pulses travel along the edges). They appear on the homepage,
+on each project card ("How it works") and on `/automations`.
+
+**Adding one of your own n8n workflows:**
 
 1. In n8n: open the workflow, then **⋯ → Download** to get the JSON.
-2. **Remove credentials and secrets**: delete every `credentials` block and any API keys, webhook IDs, emails or
-   tokens in node `parameters`.
-3. Save it as `content/workflows/<slug>.json` and add the slug to a category's `flagships` in
-   `content/workflows-index.ts`.
+2. Import it. The script keeps **only** node names, types and wiring, and drops parameters, prompts, URLs,
+   credentials, webhook paths and pinned data:
+   ```bash
+   node scripts/import-n8n.mjs path/to/export.json my-workflow-slug
+   ```
+3. Check the node names in `content/workflows/my-workflow-slug.json` (they're published as-is), then
+   register it in `content/flows.ts` with `n8nToFlow(...)`, add the id to `FlowId` in
+   `content/schema.ts`, and list it in a category's `flagships` in `content/workflows-index.ts`.
+
+**Client or employer work:** don't import the export. Hand-write the spec in `content/flows.ts` with generic
+node labels (no client names) and `source: "n8n-anonymized"`.
 
 ### Resume PDF
 

@@ -8,6 +8,8 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { TechChip } from "@/components/ui/tech-chip";
 import { Reveal } from "@/components/ui/reveal";
 import { GitHubIcon } from "@/components/icons/brand-icons";
+import { FlowDialogButton } from "@/components/flow/flow-dialog-button";
+import { getFlow } from "@/content/flows";
 import { cn } from "@/lib/utils";
 
 const domainTitle = (id: ProjectMeta["domain"]) => domains.find((d) => d.id === id)?.title ?? id;
@@ -27,9 +29,14 @@ function ProjectLinks({ project }: { project: ProjectMeta }) {
   ];
   const links = candidates.filter((l): l is CardLink => l !== null);
 
-  if (links.length === 0) return null;
+  if (links.length === 0 && !project.diagram) return null;
   return (
     <ul className="mt-5 flex flex-wrap gap-2">
+      {project.diagram && (
+        <li>
+          <FlowDialogButton spec={getFlow(project.diagram)} projectTitle={project.title} />
+        </li>
+      )}
       {links.map(({ href, label, Icon }) => (
         <li key={label}>
           <a

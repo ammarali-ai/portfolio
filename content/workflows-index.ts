@@ -1,69 +1,51 @@
-import type { PipelineStep, WorkflowCategory } from "./schema";
+import type { WorkflowCategory } from "./schema";
 
 /**
- * Real-Time AI Monitoring & Alert System (Metaviz): the five stages shown in the
- * live automation showcase. Phase 4 animates these as a React Flow diagram.
- */
-export const monitoringPipeline: readonly PipelineStep[] = [
-  {
-    id: "webhook",
-    label: "Secure webhook",
-    detail: "Receives live task events from the source system.",
-    kind: "trigger",
-  },
-  {
-    id: "validate",
-    label: "Validation",
-    detail: "Checks the payload and routes bad events to error handling.",
-    kind: "logic",
-  },
-  {
-    id: "map",
-    label: "User mapping",
-    detail: "Matches each event to the right person and team.",
-    kind: "logic",
-  },
-  {
-    id: "analyze",
-    label: "Claude analysis",
-    detail: "Summarises the event and flags what needs attention.",
-    kind: "ai",
-  },
-  {
-    id: "alert",
-    label: "Team alert",
-    detail: "Notifies the team in real time.",
-    kind: "output",
-  },
-];
-
-/**
- * Automation Gallery categories, built from the n8n workspace.
- * Counts are null until verified per category. Flagships stay empty until
- * credential-free JSON exports are added to content/workflows/.
+ * Automation categories, built from the n8n workspace. `flagships` are animated diagrams
+ * (content/flows.ts) shown on /automations. Counts stay null until verified.
  */
 export const workflowCategories: readonly WorkflowCategory[] = [
   {
     id: "ops-monitoring",
     title: "Ops & Monitoring",
     description:
-      "Real-time task monitoring, reminders and daily schedules delivered to Discord, Sheets and voice.",
+      "Real-time task monitoring, reminders, meeting notes and daily schedules delivered to Discord, Sheets and voice.",
     count: null,
     examples: [
-      "Metaviz Discord Bot",
-      "Office Task Reminder → Discord DM",
+      "Real-time task alerts (Metaviz)",
+      "AI meeting notes bot for Discord",
+      "Discord team onboarding via OAuth2",
       "Unified Daily Schedule (Calendar + Discord + Sheets + Voice)",
-      "Automated reports",
     ],
-    flagships: [],
+    flagships: [
+      "monitoring",
+      "meeting-notes-main",
+      "meeting-notes-digest",
+      "meeting-notes-errors",
+      "discord-onboarding",
+    ],
   },
   {
     id: "call-intelligence",
     title: "Call Intelligence",
-    description: "Call transcripts analysed by LLMs into structured insights and reports.",
+    description:
+      "Call transcripts analysed by LLMs into structured insights, reports and weekly digests.",
     count: null,
-    examples: ["Call Analyzer suite", "Client call-analysis pipeline"],
-    flagships: [],
+    examples: ["AI call analyzer pipeline", "Weekly call digest"],
+    flagships: ["call-analyzer", "weekly-call-digest"],
+  },
+  {
+    id: "sales-leads",
+    title: "Sales & Leads",
+    description:
+      "Lead enrichment, pre-call research briefs, sentiment-based routing and prompt feedback loops.",
+    count: null,
+    examples: [
+      "Lead intelligence & enrichment",
+      "AI pre-call brief generator",
+      "Sales lead routing with Gemini sentiment analysis & model evaluation",
+    ],
+    flagships: ["lead-intelligence", "pre-call-brief", "prompt-feedback-loop"],
   },
   {
     id: "rag-agents",
@@ -74,17 +56,6 @@ export const workflowCategories: readonly WorkflowCategory[] = [
       "RAG chatbot for company documents (Google Drive + Gemini)",
       "RAG Workflow vs. RAG Agent",
       "AI agent for inventory lookup",
-    ],
-    flagships: [],
-  },
-  {
-    id: "sales-leads",
-    title: "Sales & Leads",
-    description: "Lead routing with sentiment analysis, model evaluation and content generation.",
-    count: null,
-    examples: [
-      "Sales lead routing with Gemini sentiment analysis & model evaluation",
-      "LinkedIn content creator",
     ],
     flagships: [],
   },

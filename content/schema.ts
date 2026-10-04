@@ -122,6 +122,8 @@ export interface ProjectMeta {
   possibleApplications?: string;
   /** Main processing steps, shown as a chain on large cards. */
   flow?: readonly string[];
+  /** Id of an animated diagram in content/flows (shown via "How it works"). */
+  diagram?: FlowId;
 }
 
 /** Heading copy for a homepage section. */
@@ -132,12 +134,56 @@ export interface SectionCopy {
   description: string;
 }
 
-/** One step of an automation pipeline (static list now, React Flow in Phase 4). */
-export interface PipelineStep {
+/* ------------------------------------------------------------------------------------------
+ * Animated flow diagrams (React Flow). Used for n8n workflows and project architectures.
+ * ---------------------------------------------------------------------------------------- */
+
+export type FlowNodeKind = "trigger" | "data" | "logic" | "ai" | "output";
+
+export interface FlowNodeSpec {
   id: string;
   label: string;
-  detail: string;
-  kind: "trigger" | "logic" | "ai" | "output";
+  kind: FlowNodeKind;
+  /** Optional one-line explanation (shown in step lists and tooltips). */
+  detail?: string;
+}
+
+/** [from, to, optional label such as "yes" / "no"]. */
+export type FlowEdgeSpec = readonly [from: string, to: string, label?: string];
+
+export type FlowSource =
+  /** Rendered directly from a sanitized n8n export (structure only). */
+  | "n8n-export"
+  /** Real n8n structure with client names removed and nodes renamed generically. */
+  | "n8n-anonymized"
+  /** Hand-drawn architecture of a non-n8n project (e.g. an ML pipeline). */
+  | "architecture";
+
+export type FlowId =
+  | "monitoring"
+  | "call-analyzer"
+  | "weekly-call-digest"
+  | "meeting-notes-main"
+  | "meeting-notes-digest"
+  | "meeting-notes-errors"
+  | "discord-onboarding"
+  | "lead-intelligence"
+  | "pre-call-brief"
+  | "prompt-feedback-loop"
+  | "rice-leaf"
+  | "cotton-crop"
+  | "fake-news"
+  | "cv-ranker";
+
+export interface FlowSpec {
+  id: FlowId;
+  title: string;
+  description: string;
+  source: FlowSource;
+  /** Where it was built, e.g. "Personal project", "Built at Metaviz", "Client work". */
+  context: string;
+  nodes: readonly FlowNodeSpec[];
+  edges: readonly FlowEdgeSpec[];
 }
 
 export type WorkflowCategoryId =
@@ -156,24 +202,17 @@ export interface WorkflowCategory {
   count: number | null;
   /** Workflow names shown as examples. */
   examples: readonly string[];
-  /** Slugs of exported JSON files in content/workflows/ rendered with React Flow. */
-  flagships: readonly string[];
+  /** Animated diagrams shown for this category on /automations. */
+  flagships: readonly FlowId[];
 }
 
 /**
- * Minimal shape of an n8n workflow export that the React Flow renderer reads.
- * Exports must be stripped of credentials before being committed.
+ * Sanitized n8n export as committed in content/workflows/*.json, written by
+ * scripts/import-n8n.mjs. Only node names, types and wiring are kept. Parameters,
+ * credentials, webhook paths, pinned data and IDs are dropped.
  */
-export interface N8nWorkflowExport {
+export interface N8nSanitizedExport {
   name: string;
-  nodes: readonly {
-    id: string;
-    name: string;
-    type: string;
-    position: readonly [number, number];
-  }[];
-  connections: Record<
-    string,
-    { main?: readonly (readonly { node: string; type: string; index: number }[] | null)[] }
-  >;
+  nodes: readonly { name: string; type: string }[];
+  connections: Record<string, { main: readonly (readonly { node: string }[])[] }>;
 }

@@ -36,6 +36,9 @@
   --color-ring: var(--ring);
   --color-brand: var(--brand);
   --color-brand-2: var(--brand-2);
+  --color-leaf: var(--leaf);
+  --color-sun: var(--sun);
+  --color-flare: var(--flare);
   --color-grid: var(--grid);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -52,6 +55,12 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
 
   @keyframes marquee {
     from {
@@ -90,6 +99,10 @@
   --primary-foreground: oklch(0.99 0 0);
   --ring: var(--brand);
   --grid: oklch(0.2 0.03 262 / 6%);
+  /* Extra accents for diagram node kinds and domain clusters (keep in sync with lib/palette.ts). */
+  --leaf: oklch(0.55 0.13 165);
+  --sun: oklch(0.6 0.14 70);
+  --flare: oklch(0.56 0.21 18);
 
   --chart-1: var(--brand);
   --chart-2: var(--brand-2);
@@ -124,6 +137,9 @@
   --primary-foreground: oklch(0.16 0.03 245);
   --ring: var(--brand);
   --grid: oklch(1 0 0 / 4.5%);
+  --leaf: oklch(0.78 0.15 165);
+  --sun: oklch(0.83 0.15 85);
+  --flare: oklch(0.72 0.18 15);
 }
 
 @layer base {
@@ -212,6 +228,35 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   opacity: 0.035;
   mix-blend-mode: overlay;
+}
+
+/* React Flow: theme the controls and blend the attribution in. */
+.react-flow {
+  --xy-controls-button-background-color: var(--card);
+  --xy-controls-button-background-color-hover: var(--muted);
+  --xy-controls-button-color: var(--foreground);
+  --xy-controls-button-color-hover: var(--foreground);
+  --xy-controls-button-border-color: var(--border);
+  --xy-controls-box-shadow: none;
+}
+.react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.react-flow__attribution {
+  background: transparent !important;
+}
+.react-flow__attribution a {
+  color: var(--muted-foreground) !important;
+  font-size: 10px;
+}
+
+/* A domain card picked from the 3D Neural Core glows briefly. */
+[data-highlight="true"] {
+  box-shadow:
+    0 0 0 2px var(--brand),
+    0 0 48px -8px var(--brand);
 }
 
 /*

@@ -1,22 +1,19 @@
-import { BrainCircuit, Filter, Send, Webhook, type LucideIcon } from "lucide-react";
-import type { PipelineStep } from "@/content/schema";
-import { monitoringPipeline, workflowCategories } from "@/content/workflows-index";
+import Link from "next/link";
+import { ArrowRight, Workflow } from "lucide-react";
+import { flows } from "@/content/flows";
+import { workflowCategories } from "@/content/workflows-index";
 import { automationGalleryTitle, sections } from "@/content/sections";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
+import { LazyFlow } from "@/components/flow/lazy-flow";
+import { flowKinds } from "@/lib/flow-kinds";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const kindStyle: Record<PipelineStep["kind"], { Icon: LucideIcon; className: string }> = {
-  trigger: { Icon: Webhook, className: "text-brand border-brand/40 bg-brand/10" },
-  logic: { Icon: Filter, className: "text-muted-foreground border-border bg-muted" },
-  ai: { Icon: BrainCircuit, className: "text-brand-2 border-brand-2/40 bg-brand-2/10" },
-  output: { Icon: Send, className: "text-brand border-brand/40 bg-brand/10" },
-};
+const monitoring = flows.monitoring;
+const totalDiagrams = workflowCategories.reduce((n, c) => n + c.flagships.length, 0);
 
-/**
- * Static, accessible version of the live automation showcase.
- * Phase 4 layers an animated React Flow diagram on top of the same pipeline data.
- */
+/** Live automation showcase: the Metaviz alert system animated as a React Flow diagram. */
 export function AutomationShowcase() {
   return (
     <section
@@ -27,41 +24,36 @@ export function AutomationShowcase() {
       <SectionHeading copy={sections.automation} id="automation-title" />
 
       <Reveal>
-        <ol
-          aria-label="Real-Time Monitoring & Alert System pipeline"
-          className="grid gap-3 rounded-2xl border border-border bg-card/60 p-4 sm:p-6 lg:grid-cols-5 lg:gap-0"
-        >
-          {monitoringPipeline.map((step, i) => {
-            const { Icon, className } = kindStyle[step.kind];
-            const last = i === monitoringPipeline.length - 1;
-            return (
-              <li key={step.id} className="relative flex gap-4 lg:flex-col lg:gap-3 lg:px-3">
-                {!last && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute top-12 bottom-[-12px] left-5 w-px bg-gradient-to-b from-brand/60 to-brand-2/40 lg:top-5 lg:right-[-12px] lg:bottom-auto lg:left-[3.25rem] lg:h-px lg:w-auto lg:bg-gradient-to-r"
-                  />
-                )}
-                <span
-                  className={cn(
-                    "relative z-10 grid size-10 shrink-0 place-items-center rounded-xl border",
-                    className,
-                  )}
-                >
-                  <Icon className="size-5" aria-hidden="true" />
-                </span>
-                <div className="pb-2 lg:pb-0">
-                  <p className="font-mono text-[11px] text-muted-foreground">Step {i + 1}</p>
-                  <h3 className="text-base font-semibold">{step.label}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{step.detail}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+        <LazyFlow spec={monitoring} />
       </Reveal>
 
-      <h3 className="mt-16 mb-6 text-xl font-semibold">{automationGalleryTitle}</h3>
+      <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {monitoring.nodes.map((node) => {
+          const { Icon, chip } = flowKinds[node.kind];
+          return (
+            <li key={node.id} className="flex gap-3 rounded-xl border border-border bg-card/50 p-3">
+              <span
+                className={cn("grid size-8 shrink-0 place-items-center rounded-lg border", chip)}
+              >
+                <Icon className="size-4" aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="text-sm font-semibold">{node.label}</h3>
+                <p className="text-sm text-muted-foreground">{node.detail}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+
+      <div className="mt-16 mb-6 flex flex-wrap items-end justify-between gap-4">
+        <h3 className="text-xl font-semibold">{automationGalleryTitle}</h3>
+        <Link href="/automations" className={buttonVariants({ variant: "outline" })}>
+          <Workflow data-icon="inline-start" aria-hidden="true" />
+          Explore {totalDiagrams} animated workflows
+          <ArrowRight data-icon="inline-end" aria-hidden="true" />
+        </Link>
+      </div>
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {workflowCategories.map((cat, i) => (
           <li key={cat.id}>
@@ -85,6 +77,16 @@ export function AutomationShowcase() {
                     </li>
                   ))}
                 </ul>
+                {cat.flagships.length > 0 && (
+                  <Link
+                    href={`/automations#${cat.id}`}
+                    className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
+                  >
+                    {cat.flagships.length} animated{" "}
+                    {cat.flagships.length === 1 ? "diagram" : "diagrams"}
+                    <ArrowRight className="size-3" aria-hidden="true" />
+                  </Link>
+                )}
               </div>
             </Reveal>
           </li>

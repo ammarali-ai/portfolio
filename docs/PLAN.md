@@ -20,16 +20,16 @@ Audit findings that shape the plan:
 - **Resume**: the single source of truth. Phone number stays off the site; contact uses the Gmail address only.
 - **Photos**: use photo 1 (yellow polo, outdoor, natural light) for hero/about and crop it to a portrait. Don't use photo 2 (bathroom mirror selfie). `OneDrive\Desktop\my pic.jpeg` is a backup option.
 - **Real project folders on Desktop** (stronger than resume bullets):
-  - Call Analyzer / Daniel-Call-Analyzer (Next.js app + n8n)
+  - Call Analyzer (client work: Next.js app + n8n)
   - AI Meeting Notes Bot (n8n + Discord + Gemini + docx service)
   - TASKBoard Discord bot
-  - Report generator / WBT lead intel
+  - Report generator / lead intelligence (client work)
   - LangGraph project
   - LangChain models
   - Fake News Detection
 - **Discrepancy to resolve**: `Fake News Detection/main.py` is Streamlit + TF-IDF + Multinomial NB (`.pkl`). The resume says BERT + SVM. The site will state only what the code or notebook proves. Check the notebook for BERT before publishing.
 - **n8n workspace** (from screenshots), about 70+ workflows (exact count marked TODO):
-  - Folders: practice 27, DANIEL-CALL-ANALYZER 10, reports 7, Office project 5, Call Analyzer 4, Metaviz Discord Bot 3
+  - Folders: practice 27, client call analyzer 10, reports 7, Office project 5, Call Analyzer 4, Metaviz Discord Bot 3
   - Loose workflows: about 20
 
   Grouped into showcase categories:
@@ -56,7 +56,7 @@ Audit findings that shape the plan:
 **Final stack:**
 
 - **Framework and UI:** Next.js 16 + TypeScript strict, Tailwind v4 + shadcn/ui, `motion` (Framer Motion), Lenis
-- **3D and diagrams:** R3F + drei + postprocessing; `@xyflow/react` (React Flow)
+- **3D and diagrams:** R3F + drei with custom shaders (sprite glow instead of post-processing bloom, which breaks transparent canvases); `@xyflow/react` (React Flow)
 - **Content:** Velite (typed MDX for projects/research)
 - **AI and backend:** `@anthropic-ai/sdk` (Claude Haiku), Resend + Zod, Upstash Ratelimit (falls back to in-memory)
 - **Hosting:** Vercel + `@vercel/analytics`, built-in sitemap/robots

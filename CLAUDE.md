@@ -23,7 +23,7 @@ Full plan: [docs/PLAN.md](docs/PLAN.md).
 ## Stack
 
 Next.js 16 (App Router, Turbopack) · React 19.2 · TypeScript strict · Tailwind CSS v4 · shadcn/ui ·
-`motion` · Lenis · React Three Fiber + drei + postprocessing · `@xyflow/react` · Velite (MDX) ·
+`motion` · Lenis · React Three Fiber + drei (custom shaders) · `@xyflow/react` · Velite (MDX) ·
 `@anthropic-ai/sdk` (Claude Haiku) · Resend + Zod · Upstash Ratelimit (in-memory fallback) · Vercel.
 
 ## Folder map (target)
@@ -54,6 +54,11 @@ docs/PLAN.md             phased plan + status
    example: Fake News Detection is BERT + SVM per the owner; the local TF-IDF + NB repo is an older prototype.)
 5. No empty "testimonials" section. Only add one when real quotes exist.
 6. All copy lives in `/content`; components only render it.
+7. **Client and employer work is anonymized.** Never show client names (e.g. company or person names
+   in n8n folder/node names). Personal projects may be imported from n8n exports via
+   `scripts/import-n8n.mjs` (structure only). Client/employer flows are hand-written in
+   `content/flows.ts` with generic node labels and `source: "n8n-anonymized"`.
+8. Architecture diagrams (`source: "architecture"`) may only contain steps the resume or code confirms.
 
 ## Code conventions
 
@@ -63,6 +68,13 @@ docs/PLAN.md             phased plan + status
 - Respect `prefers-reduced-motion`: no 3D animation or heavy motion, static fallbacks instead.
 - Scroll reveals use `<Reveal>` (CSS scroll-driven animation, no JS): content is visible by default and must never depend on JS to appear.
 - 3D must never block LCP. Load it with `next/dynamic` (`ssr: false`) behind a lightweight poster.
+  The hero photo is the poster + LCP image; the Neural Core shader hides particles behind it
+  (keep `PHOTO_RADIUS_FRACTION` in hero-visual.tsx in sync with the photo's CSS inset).
+- Animated diagrams: `<LazyFlow spec={getFlow(id)} />` (server-renderable shell, lazy React Flow,
+  sizes itself from the layout; long flows snake into rows). Use `interactive` for pan/zoom.
+- Decorative bleed is clipped by `main { overflow-x: clip }`. Don't put overflow on `<body>`
+  (it propagates to the viewport and doesn't clip).
+- WebGL-only colors live in `lib/palette.ts` (hex mirrors of the CSS tokens). Keep them in sync.
 - Secrets are server-only (`ANTHROPIC_API_KEY`, `RESEND_API_KEY`, …). Never prefix them with `NEXT_PUBLIC_`.
 - Next 16 specifics: `params`/`searchParams` are async, `middleware` is renamed `proxy`, and lint runs through the ESLint CLI.
   Check `node_modules/next/dist/docs/` before using an unfamiliar API.
@@ -82,7 +94,7 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 ## Environment notes
 
 - Develop in `C:\dev\my_portfolio`, a clone that lives outside OneDrive. OneDrive sync corrupted v1's `.git` and dropped files.
-  The OneDrive copy (`Desktop\my_portfolio`) is a source-only checkout for browsing; refresh it with `git pull`.
+  `OneDrive\Desktop\my_portfolio` is still that old, broken v1 copy. Don't work there.
 - On this Windows machine Node may be missing from PATH in some shells. It lives in `C:\Program Files\nodejs`.
 - Git: work happens on branch `v2`; merge to `main` (the production branch) at Phase 7.
 
@@ -91,7 +103,8 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 - [x] 1. Audit & setup: scaffold, deps, configs, content schema, docs
 - [x] 2. Foundation: tokens, fonts, layout, navbar/footer, theme, Lenis, content files from resume
 - [x] 3. Core sections (no 3D)
-- [ ] 4. Signature features: Neural Core, role rotator, n8n → React Flow, terminal
+- [x] 4. Signature features: Neural Core, role rotator, animated diagrams for workflows + projects,
+      /automations gallery, terminal
 - [ ] 5. AI assistant + CV ranker on Claude
 - [ ] 6. Projects & research (Velite MDX)
 - [ ] 7. Polish & ship: contact, SEO/OG, perf + a11y, deploy

@@ -21,7 +21,7 @@ export const domains: readonly Domain[] = [
       { label: "Real-Time Monitoring & Alert System", href: "/#automation" },
       { label: "Call Analyzer", href: "/#project-call-analyzer" },
       { label: "AI Meeting Notes Bot", href: "/#project-meeting-notes-bot" },
-      // TODO (Phase 4): add { label: "n8n Automation Gallery", href: "/automations" }.
+      { label: "Animated n8n workflow gallery", href: "/automations" },
     ],
   },
   {

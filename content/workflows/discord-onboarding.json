@@ -1,0 +1,67 @@
+{
+  "name": "Discord OAuth2 - Add Team Members to Server",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook"
+    },
+    {
+      "name": "Exchange Code for Token",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Get Discord User Info",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Add to Guild",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook"
+    },
+    {
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Exchange Code for Token"
+          }
+        ]
+      ]
+    },
+    "Exchange Code for Token": {
+      "main": [
+        [
+          {
+            "node": "Get Discord User Info"
+          }
+        ]
+      ]
+    },
+    "Get Discord User Info": {
+      "main": [
+        [
+          {
+            "node": "Add to Guild"
+          }
+        ]
+      ]
+    },
+    "Add to Guild": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook"
+          }
+        ]
+      ]
+    }
+  }
+}

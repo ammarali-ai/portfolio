@@ -1,0 +1,63 @@
+{
+  "name": "Meeting Notes — Scheduled Digest",
+  "nodes": [
+    {
+      "name": "Daily 08:00 Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger"
+    },
+    {
+      "name": "Read Meeting Log",
+      "type": "n8n-nodes-base.googleSheets"
+    },
+    {
+      "name": "Filter Last 7 Days",
+      "type": "n8n-nodes-base.function"
+    },
+    {
+      "name": "Call Gemini Digest",
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Post Digest",
+      "type": "n8n-nodes-base.httpRequest"
+    }
+  ],
+  "connections": {
+    "Daily 08:00 Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Meeting Log"
+          }
+        ]
+      ]
+    },
+    "Read Meeting Log": {
+      "main": [
+        [
+          {
+            "node": "Filter Last 7 Days"
+          }
+        ]
+      ]
+    },
+    "Filter Last 7 Days": {
+      "main": [
+        [
+          {
+            "node": "Call Gemini Digest"
+          }
+        ]
+      ]
+    },
+    "Call Gemini Digest": {
+      "main": [
+        [
+          {
+            "node": "Post Digest"
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, SquareTerminal, X } from "lucide-react";
 import { profile, siteNav } from "@/content/profile";
+import { OPEN_TERMINAL_EVENT } from "@/lib/events";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
@@ -61,6 +62,15 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(OPEN_TERMINAL_EVENT))}
+            aria-label="Open terminal (shortcut: backtick key)"
+            title="Terminal ( ` )"
+            className="inline-flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <SquareTerminal className="size-4" aria-hidden="true" />
+          </button>
           <ThemeToggle />
           {profile.resumeUrl && (
             <a

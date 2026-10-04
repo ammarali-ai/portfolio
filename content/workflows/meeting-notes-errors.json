@@ -1,0 +1,37 @@
+{
+  "name": "Meeting Notes — Error Handler",
+  "nodes": [
+    {
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger"
+    },
+    {
+      "name": "Format Error",
+      "type": "n8n-nodes-base.function"
+    },
+    {
+      "name": "Notify Discord",
+      "type": "n8n-nodes-base.httpRequest"
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format Error"
+          }
+        ]
+      ]
+    },
+    "Format Error": {
+      "main": [
+        [
+          {
+            "node": "Notify Discord"
+          }
+        ]
+      ]
+    }
+  }
+}

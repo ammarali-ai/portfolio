@@ -49,5 +49,18 @@ export const sections = {
   },
 } as const satisfies Record<string, SectionCopy>;
 
+/** Small UI copy in the hero. */
+export const heroCopy = {
+  domainLegend: "Explore my domains",
+} as const;
+
 /** Sub-heading above the n8n category cards in the automation section. */
 export const automationGalleryTitle = "What else I automate with n8n";
+
+/** /automations page header. */
+export const automationsPage = {
+  eyebrow: "Automation gallery",
+  title: "Workflows, animated",
+  description:
+    "Real n8n workflows I've built, replayed node by node. My own projects are rendered straight from their exports; client and employer work keeps its real structure with names anonymized. Drag to pan, use the controls to zoom.",
+} as const satisfies SectionCopy;

@@ -1,15 +1,20 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Download, MapPin } from "lucide-react";
 import { profile } from "@/content/profile";
+import { domains } from "@/content/domains";
+import { heroCopy } from "@/content/sections";
 import { buttonVariants } from "@/components/ui/button";
+import { RoleRotator } from "@/components/hero/role-rotator";
+import { HeroVisual } from "@/components/hero/hero-visual";
 
-/** Static hero. Phase 4 adds the 3D Neural Core and the role rotator. */
+/** Hero: intro + typing role rotator, with the 3D Neural Core (lazy) on the right. */
 export function Hero() {
+  const coreDomains = domains.map(({ id, title, status }) => ({ id, title, status }));
+
   return (
     <section
       aria-labelledby="hero-title"
-      className="container-page grid items-center gap-12 pt-14 pb-20 md:grid-cols-[1.4fr_1fr] md:pt-24 md:pb-28"
+      className="container-page grid items-center gap-10 pt-12 pb-16 md:grid-cols-[1.25fr_1fr] md:pt-20 md:pb-24"
     >
       <div>
         {profile.availability && (
@@ -21,8 +26,10 @@ export function Hero() {
         <h1 id="hero-title" className="text-4xl font-bold sm:text-5xl lg:text-6xl">
           {profile.name}
         </h1>
-        <p className="mt-4 font-mono text-lg text-brand sm:text-xl">{profile.roles[0]}</p>
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="mt-4 h-8 font-mono text-lg text-brand sm:text-xl">
+          <RoleRotator roles={profile.roles} />
+        </p>
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           {profile.summary}
         </p>
         <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -47,16 +54,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="glow-border relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-border bg-card">
-        <Image
-          src={profile.photo.src}
-          alt={profile.photo.alt}
-          fill
-          priority
-          sizes="(min-width: 768px) 384px, 90vw"
-          className="object-cover object-[50%_30%]"
-        />
-      </div>
+      <HeroVisual photo={profile.photo} domains={coreDomains} legendLabel={heroCopy.domainLegend} />
     </section>
   );
 }

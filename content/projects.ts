@@ -1,9 +1,10 @@
 import type { ProjectMeta } from "./schema";
-import { monitoringPipeline } from "./workflows-index";
+import { flows } from "./flows";
 
 /**
  * Project metadata (card + archive data). Long-form case studies arrive as MDX in Phase 6.
  * Order = display order. Facts come from the resume or the project's own code only.
+ * `diagram` links to an animated flow in content/flows.ts ("How it works").
  * TODO: fill in links.github / links.demo / links.hfSpace for each project.
  */
 export const projects: readonly ProjectMeta[] = [
@@ -21,20 +22,23 @@ export const projects: readonly ProjectMeta[] = [
     date: "2026-04",
     links: {},
     possibleApplications: "Early-warning and alert dissemination, e.g. for disaster management.",
-    flow: monitoringPipeline.map((s) => s.label),
+    flow: flows.monitoring.nodes.filter((n) => n.id !== "errors").map((n) => n.label),
+    diagram: "monitoring",
   },
   {
     slug: "call-analyzer",
     title: "Call Analyzer",
     domain: "automation",
-    impact: "Upload a call transcript and get a structured LLM analysis on a per-user dashboard.",
+    impact:
+      "Sales calls are transcribed, classified, scored and turned into rep reports, manager alerts and follow-up drafts.",
     summary:
-      "A full-stack Next.js app with Supabase auth and row-level security. An analysis API runs transcripts through a pluggable LLM provider plus rule-based flags and stores the result per call; companion n8n workflows generate documents.",
-    tech: ["Next.js", "TypeScript", "Supabase", "LLM API", "n8n"],
+      "Built in two iterations for a client: a Next.js + Supabase dashboard with an LLM analysis API, and an n8n pipeline that transcribes calls with Whisper when needed, classifies and analyses them against a strict JSON schema, stores results in Supabase and emails reports, alerts and follow-up drafts.",
+    tech: ["n8n", "OpenAI", "Whisper", "Supabase", "Next.js", "Gmail"],
     status: "built",
     featured: true,
     date: "2026-05",
     links: {},
+    diagram: "call-analyzer",
   },
   {
     slug: "rice-leaf-disease",
@@ -49,6 +53,7 @@ export const projects: readonly ProjectMeta[] = [
     date: "2024-07",
     links: {},
     possibleApplications: "Satellite and drone imagery for crop or damage assessment.",
+    diagram: "rice-leaf",
   },
   {
     slug: "meeting-notes-bot",
@@ -59,19 +64,11 @@ export const projects: readonly ProjectMeta[] = [
     summary:
       "A discord.js bot (TypeScript) plus three n8n workflows. The main flow validates input, fetches and parses the transcript, chunks long meetings, asks Gemini for strict-JSON notes, posts an embed and threaded full notes, and logs to Google Sheets. A daily scheduled flow posts a digest of the last 7 days and an error flow reports failures to Discord.",
     tech: ["n8n", "Gemini", "discord.js", "TypeScript", "Google Sheets"],
-    flow: [
-      "Webhook",
-      "Validate",
-      "Fetch transcript",
-      "Chunk",
-      "Gemini notes",
-      "Discord thread",
-      "Sheets log",
-    ],
     status: "built",
     featured: true,
     date: "2026-04",
     links: {},
+    diagram: "meeting-notes-main",
   },
   {
     slug: "fake-news-detection",
@@ -87,6 +84,7 @@ export const projects: readonly ProjectMeta[] = [
     date: "2024-10",
     links: {},
     possibleApplications: "Monitoring misinformation during emergencies.",
+    diagram: "fake-news",
   },
   {
     slug: "cotton-crop-disease",
@@ -100,6 +98,7 @@ export const projects: readonly ProjectMeta[] = [
     featured: true,
     date: "2023-10",
     links: {},
+    diagram: "cotton-crop",
   },
   {
     slug: "cv-ranker",
@@ -114,6 +113,7 @@ export const projects: readonly ProjectMeta[] = [
     featured: false,
     date: "2026-10",
     links: {},
+    diagram: "cv-ranker",
   },
 ];
 

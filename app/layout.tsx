@@ -5,7 +5,9 @@ import { Providers } from "@/components/providers/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Background } from "@/components/layout/background";
+import { Terminal } from "@/components/terminal/terminal";
 import { site } from "@/lib/site";
+import { terminalData } from "@/lib/terminal-data";
 import "./globals.css";
 
 const display = Space_Grotesk({ variable: "--font-display", subsets: ["latin"] });
@@ -43,10 +45,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </a>
           <Background />
           <Navbar />
-          <main id="main" className="flex-1">
+          {/* overflow-x-clip: decorative bleed (hero canvas, glows) never widens the page.
+              Applied here, not on <body>, because body overflow propagates to the viewport. */}
+          <main id="main" className="flex-1 overflow-x-clip">
             {children}
           </main>
           <Footer />
+          <Terminal data={terminalData} />
         </Providers>
         <Analytics />
       </body>
