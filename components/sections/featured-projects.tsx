@@ -1,8 +1,8 @@
 import { ExternalLink, FlaskConical } from "lucide-react";
 import type { ProjectMeta } from "@/content/schema";
-import { featuredProjects } from "@/content/projects";
+import { featuredProjects, projects } from "@/content/projects";
 import { domains } from "@/content/domains";
-import { sections } from "@/content/sections";
+import { moreProjectsTitle, sections } from "@/content/sections";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { TechChip } from "@/components/ui/tech-chip";
@@ -11,6 +11,8 @@ import { GitHubIcon } from "@/components/icons/brand-icons";
 import { FlowDialogButton } from "@/components/flow/flow-dialog-button";
 import { getFlow } from "@/content/flows";
 import { cn } from "@/lib/utils";
+
+const otherProjects = projects.filter((p) => !p.featured);
 
 const domainTitle = (id: ProjectMeta["domain"]) => domains.find((d) => d.id === id)?.title ?? id;
 
@@ -152,6 +154,30 @@ export function FeaturedProjects() {
           </Reveal>
         ))}
       </div>
+
+      {otherProjects.length > 0 && (
+        <>
+          <h3 className="mt-14 mb-5 text-xl font-semibold">{moreProjectsTitle}</h3>
+          <ul className="grid gap-3 md:grid-cols-3">
+            {otherProjects.map((project) => (
+              <li
+                key={project.slug}
+                id={`project-${project.slug}`}
+                className="flex flex-col rounded-xl border border-border bg-card/60 p-4"
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <h4 className="font-semibold">{project.title}</h4>
+                  <StatusBadge status={project.status} />
+                </div>
+                <p className="text-sm text-muted-foreground">{project.impact}</p>
+                <div className="mt-auto pt-4">
+                  <ProjectLinks project={project} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 }

@@ -55,9 +55,13 @@ docs/PLAN.md             phased plan + status
 5. No empty "testimonials" section. Only add one when real quotes exist.
 6. All copy lives in `/content`; components only render it.
 7. **Client and employer work is anonymized.** Never show client names (e.g. company or person names
-   in n8n folder/node names). Personal projects may be imported from n8n exports via
-   `scripts/import-n8n.mjs` (structure only). Client/employer flows are hand-written in
-   `content/flows.ts` with generic node labels and `source: "n8n-anonymized"`.
+   in n8n folder/node names), anywhere: site, docs, commits or commit messages. Personal projects
+   may be imported from n8n exports via `scripts/import-n8n.mjs` (structure only). Client flows are
+   hand-written in `content/flows.ts` with generic node labels and `source: "n8n-anonymized"`.
+   **Employer names (former companies) stay out of all project-facing content**: project cards,
+   diagrams, workflow descriptions, domain links. Use "Work project · anonymized". The only place
+   employers appear is the Experience timeline (the owner's work history, as on the resume).
+   Before committing, grep for client and company names.
 8. Architecture diagrams (`source: "architecture"`) may only contain steps the resume or code confirms.
 
 ## Code conventions

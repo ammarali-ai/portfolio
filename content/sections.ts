@@ -18,7 +18,7 @@ export const sections = {
     eyebrow: "03 · Live automation",
     title: "How my alert system thinks",
     description:
-      "The Real-Time Monitoring & Alert System I built at Metaviz, step by step. Below it: the kinds of n8n workflows I build.",
+      "A production Real-Time Monitoring & Alert System I built, step by step. Below it: the kinds of n8n workflows I build.",
   },
   experience: {
     eyebrow: "04 · Experience",
@@ -48,6 +48,9 @@ export const sections = {
       "Hiring for an AI or automation role, or have a workflow that should run itself? Send a message and I'll reply by email.",
   },
 } as const satisfies Record<string, SectionCopy>;
+
+/** Heading for the compact list of non-featured projects under the bento grid. */
+export const moreProjectsTitle = "More projects";
 
 /** Small UI copy in the hero. */
 export const heroCopy = {

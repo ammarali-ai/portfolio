@@ -18,7 +18,7 @@ export const stats: readonly Stat[] = [
     value: 900,
     suffix: "+",
     label: "User accounts supported",
-    source: "Resume: Mindbridge, IT Support & Systems Monitoring Officer",
+    source: "Resume: IT Support & Systems Monitoring role",
   },
   {
     value: 70,

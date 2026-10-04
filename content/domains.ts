@@ -54,7 +54,7 @@ export const domains: readonly Domain[] = [
     ],
     related: [
       { label: "Digital Forensics & Cybersecurity (NAVTTC)", href: "/#certifications" },
-      { label: "Cisco AMP monitoring at Mindbridge", href: "/#experience" },
+      { label: "Endpoint threat monitoring (Cisco AMP)", href: "/#experience" },
       { label: "Fake News Detection (NLP)", href: "/#project-fake-news-detection" },
     ],
   },

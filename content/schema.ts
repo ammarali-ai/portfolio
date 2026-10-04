@@ -173,14 +173,15 @@ export type FlowId =
   | "rice-leaf"
   | "cotton-crop"
   | "fake-news"
-  | "cv-ranker";
+  | "cv-ranker"
+  | "multi-agent";
 
 export interface FlowSpec {
   id: FlowId;
   title: string;
   description: string;
   source: FlowSource;
-  /** Where it was built, e.g. "Personal project", "Built at Metaviz", "Client work". */
+  /** Where it was built, e.g. "Personal project", "Work project · anonymized", "Client work · anonymized". */
   context: string;
   nodes: readonly FlowNodeSpec[];
   edges: readonly FlowEdgeSpec[];

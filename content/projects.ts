@@ -15,7 +15,7 @@ export const projects: readonly ProjectMeta[] = [
     impact:
       "Live task events are validated, mapped to the right people and turned into team alerts automatically.",
     summary:
-      "A production n8n system at Metaviz. Secure webhooks receive live task events; the workflow validates the payload, maps it to users, handles errors and notifies teams in real time, with Claude used for analysis and summaries.",
+      "A production n8n system. Secure webhooks receive live task events; the workflow validates the payload, maps it to users, handles errors and notifies teams in real time, with Claude used for analysis and summaries.",
     tech: ["n8n", "Webhooks", "Claude API", "Discord", "REST APIs"],
     status: "built",
     featured: true,
@@ -39,6 +39,22 @@ export const projects: readonly ProjectMeta[] = [
     date: "2026-05",
     links: {},
     diagram: "call-analyzer",
+  },
+  {
+    // Client work: described from the workflow's structure only; client name withheld.
+    slug: "lead-intelligence",
+    title: "Lead Intelligence Engine",
+    domain: "automation",
+    impact:
+      "Researches every new lead from four sources in parallel and emails an AI-written strategy brief.",
+    summary:
+      "A webhook receives a new lead and normalizes it, then fans out to four lookups at once: the business profile, competitors, search results and the lead's own website. The findings are merged, analysed by an LLM for strategy, parsed and turned into a brief that's emailed automatically.",
+    tech: ["n8n", "Groq LLM", "Google Places API", "SERP API", "Gmail"],
+    status: "built",
+    featured: true,
+    date: "2026-04",
+    links: {},
+    diagram: "lead-intelligence",
   },
   {
     slug: "rice-leaf-disease",
@@ -87,6 +103,22 @@ export const projects: readonly ProjectMeta[] = [
     diagram: "fake-news",
   },
   {
+    // Client work: described from the workflow's structure only; client name withheld.
+    slug: "pre-call-brief",
+    title: "AI Pre-Call Brief Generator",
+    domain: "automation",
+    impact:
+      "One form submission becomes a researched, QA-checked call brief delivered as PDF and DOCX.",
+    summary:
+      "A form webhook triggers a single Claude call that researches the prospect and drafts the brief. The workflow extracts the result, runs QA checks, converts it to PDF and DOCX and emails it with attachments before the call.",
+    tech: ["n8n", "Claude API", "PDF / DOCX generation", "Gmail"],
+    status: "built",
+    featured: true,
+    date: "2026-04",
+    links: {},
+    diagram: "pre-call-brief",
+  },
+  {
     slug: "cotton-crop-disease",
     title: "Cotton Crop Disease Detection",
     domain: "agriculture",
@@ -99,6 +131,54 @@ export const projects: readonly ProjectMeta[] = [
     date: "2023-10",
     links: {},
     diagram: "cotton-crop",
+  },
+  {
+    // Client work: described from the workflow's structure only; client name withheld.
+    slug: "prompt-feedback-loop",
+    title: "LLM Prompt Feedback Loop",
+    domain: "automation",
+    impact:
+      "Closes the loop between sales outcomes and AI prompts with a weekly, Claude-written tuning report.",
+    summary:
+      "Every week the workflow reads call outcomes, lost reasons and meeting briefs, computes metrics, and asks Claude to summarise the patterns. The findings are saved as prompt-tuning notes and posted to the team's Slack, so the prompts behind the other automations keep improving.",
+    tech: ["n8n", "Claude API", "Google Sheets", "Slack"],
+    status: "built",
+    featured: true,
+    date: "2026-04",
+    links: {},
+    diagram: "prompt-feedback-loop",
+  },
+  {
+    // Work project: generic node names only; employer withheld on project cards.
+    slug: "discord-onboarding",
+    title: "Discord Team Onboarding",
+    domain: "automation",
+    impact: "New team members join the team's Discord server in one click through OAuth2.",
+    summary:
+      "The OAuth2 redirect hits an n8n webhook; the workflow exchanges the code for a token, reads the user's Discord profile and adds them to the server, with clear error responses when a step fails. A companion form flow records new members in a data table.",
+    tech: ["n8n", "Discord OAuth2", "Discord API", "Webhooks"],
+    status: "built",
+    featured: false,
+    date: "2026-04",
+    links: {},
+    diagram: "discord-onboarding",
+  },
+  {
+    // Source on disk only survives as compiled modules (agents: planner, researcher, coder,
+    // critic; tools: code_executor; pytest cache). TODO: confirm details + add the repo link.
+    slug: "multi-agent-assistant",
+    title: "Multi-Agent Coding Assistant",
+    domain: "automation",
+    impact:
+      "Planner, researcher, coder and critic agents collaborate on a task in a LangGraph graph.",
+    summary:
+      "A LangGraph multi-agent system: a planner breaks the task down, a researcher gathers context, a coder writes code and runs it through a code-execution tool, and a critic reviews the result. Includes pytest tests.",
+    tech: ["Python", "LangGraph", "LangChain", "pytest"],
+    status: "in-progress",
+    featured: false,
+    date: "2026-04",
+    links: {},
+    diagram: "multi-agent",
   },
   {
     slug: "cv-ranker",

@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 const monitoring = flows.monitoring;
 const totalDiagrams = workflowCategories.reduce((n, c) => n + c.flagships.length, 0);
 
-/** Live automation showcase: the Metaviz alert system animated as a React Flow diagram. */
+/** Live automation showcase: the production alert system animated as a React Flow diagram. */
 export function AutomationShowcase() {
   return (
     <section

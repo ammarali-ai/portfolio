@@ -12,7 +12,7 @@ export const workflowCategories: readonly WorkflowCategory[] = [
       "Real-time task monitoring, reminders, meeting notes and daily schedules delivered to Discord, Sheets and voice.",
     count: null,
     examples: [
-      "Real-time task alerts (Metaviz)",
+      "Real-time task alerts",
       "AI meeting notes bot for Discord",
       "Discord team onboarding via OAuth2",
       "Unified Daily Schedule (Calendar + Discord + Sheets + Voice)",

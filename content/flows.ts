@@ -18,7 +18,7 @@ const list: FlowSpec[] = [
     description:
       "Live task events arrive over a secure webhook, get validated and mapped to the right people, analysed, and pushed to the team as alerts.",
     source: "architecture",
-    context: "Built at Metaviz",
+    context: "Work project · anonymized",
     nodes: [
       {
         id: "webhook",
@@ -162,7 +162,7 @@ const list: FlowSpec[] = [
     title: "Discord team onboarding (OAuth2)",
     description:
       "Exchanges an OAuth2 code for a token, reads the user's Discord profile and adds them to the team server, with error responses for failed steps.",
-    context: "Built at Metaviz",
+    context: "Work project · anonymized",
   }),
   {
     id: "lead-intelligence",
@@ -311,7 +311,7 @@ const list: FlowSpec[] = [
     description:
       "News text in English, Urdu and Spanish is classified as real or fake using BERT and an SVM, reaching 90% accuracy.",
     source: "architecture",
-    context: "Knowledge Streams",
+    context: "Data science training project",
     nodes: [
       { id: "text", label: "News text (EN · UR · ES)", kind: "data" },
       { id: "prep", label: "Text preprocessing", kind: "logic" },
@@ -346,6 +346,43 @@ const list: FlowSpec[] = [
       ["limits", "claude"],
       ["claude", "validate"],
       ["validate", "result"],
+    ],
+  },
+  {
+    // Roles taken from the project's module names (agents/planner, researcher, coder, critic;
+    // tools/code_executor). TODO: confirm the exact control flow with the owner.
+    id: "multi-agent",
+    title: "Multi-agent coding assistant",
+    description:
+      "A LangGraph graph of specialist agents: a planner breaks the task down, a researcher gathers context, a coder writes and runs code through an execution tool, and a critic reviews the result.",
+    source: "architecture",
+    context: "Personal project",
+    nodes: [
+      { id: "task", label: "User task", kind: "trigger" },
+      { id: "planner", label: "Planner agent", kind: "ai", detail: "Breaks the task into steps." },
+      {
+        id: "researcher",
+        label: "Researcher agent",
+        kind: "ai",
+        detail: "Gathers the context the steps need.",
+      },
+      { id: "coder", label: "Coder agent", kind: "ai", detail: "Writes the code." },
+      {
+        id: "executor",
+        label: "Code executor tool",
+        kind: "logic",
+        detail: "Runs the code and returns the output.",
+      },
+      { id: "critic", label: "Critic agent", kind: "ai", detail: "Reviews the result." },
+      { id: "answer", label: "Final answer", kind: "output" },
+    ],
+    edges: [
+      ["task", "planner"],
+      ["planner", "researcher"],
+      ["researcher", "coder"],
+      ["coder", "executor"],
+      ["executor", "critic"],
+      ["critic", "answer"],
     ],
   },
 ];
