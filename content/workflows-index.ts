@@ -1,4 +1,41 @@
-import type { WorkflowCategory } from "./schema";
+import type { PipelineStep, WorkflowCategory } from "./schema";
+
+/**
+ * Real-Time AI Monitoring & Alert System (Metaviz): the five stages shown in the
+ * live automation showcase. Phase 4 animates these as a React Flow diagram.
+ */
+export const monitoringPipeline: readonly PipelineStep[] = [
+  {
+    id: "webhook",
+    label: "Secure webhook",
+    detail: "Receives live task events from the source system.",
+    kind: "trigger",
+  },
+  {
+    id: "validate",
+    label: "Validation",
+    detail: "Checks the payload and routes bad events to error handling.",
+    kind: "logic",
+  },
+  {
+    id: "map",
+    label: "User mapping",
+    detail: "Matches each event to the right person and team.",
+    kind: "logic",
+  },
+  {
+    id: "analyze",
+    label: "Claude analysis",
+    detail: "Summarises the event and flags what needs attention.",
+    kind: "ai",
+  },
+  {
+    id: "alert",
+    label: "Team alert",
+    detail: "Notifies the team in real time.",
+    kind: "output",
+  },
+];
 
 /**
  * Automation Gallery categories, built from the n8n workspace.
@@ -25,7 +62,7 @@ export const workflowCategories: readonly WorkflowCategory[] = [
     title: "Call Intelligence",
     description: "Call transcripts analysed by LLMs into structured insights and reports.",
     count: null,
-    examples: ["Call Analyzer suite", "Daniel Call Analyzer"],
+    examples: ["Call Analyzer suite", "Client call-analysis pipeline"],
     flagships: [],
   },
   {

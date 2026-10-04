@@ -1,0 +1,53 @@
+import type { SectionCopy } from "./schema";
+
+/** Heading copy for every homepage section, in page order. */
+export const sections = {
+  domains: {
+    eyebrow: "01 · Research & domains",
+    title: "Five domains, one toolkit",
+    description:
+      "Where I apply ML and LLMs, from things I've shipped to areas I'm actively exploring. Each one maps to a node in the neural core above.",
+  },
+  projects: {
+    eyebrow: "02 · Featured work",
+    title: "Projects that actually run",
+    description:
+      "Production automations, full-stack AI apps and the models behind them. Every number here comes from the project itself.",
+  },
+  automation: {
+    eyebrow: "03 · Live automation",
+    title: "How my alert system thinks",
+    description:
+      "The Real-Time Monitoring & Alert System I built at Metaviz, step by step. Below it: the kinds of n8n workflows I build.",
+  },
+  experience: {
+    eyebrow: "04 · Experience",
+    title: "Where I've worked",
+    description: "From IT operations and data analysis to building AI automation in production.",
+  },
+  skills: {
+    eyebrow: "05 · Tech arsenal",
+    title: "Tools I reach for",
+    description: "Grouped the way I use them, from training models to shipping automations.",
+  },
+  certifications: {
+    eyebrow: "06 · Certifications",
+    title: "Keeping the fundamentals sharp",
+    description: "Recent coursework in ML, data science and generative AI.",
+  },
+  education: {
+    eyebrow: "07 · Education",
+    title: "Education & events",
+    description:
+      "A degree in Artificial Intelligence, plus the conferences and AI expos I've attended.",
+  },
+  contact: {
+    eyebrow: "08 · Contact",
+    title: "Let's build something useful",
+    description:
+      "Hiring for an AI or automation role, or have a workflow that should run itself? Send a message and I'll reply by email.",
+  },
+} as const satisfies Record<string, SectionCopy>;
+
+/** Sub-heading above the n8n category cards in the automation section. */
+export const automationGalleryTitle = "What else I automate with n8n";

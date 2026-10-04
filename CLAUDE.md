@@ -60,6 +60,7 @@ docs/PLAN.md             phased plan + status
   for interactivity (3D, flow, chat, terminal, theme toggle).
 - Small, reusable components. Colors come from CSS variables / Tailwind tokens only, never hard-coded hex values in components.
 - Respect `prefers-reduced-motion`: no 3D animation or heavy motion, static fallbacks instead.
+- Scroll reveals use `<Reveal>` (CSS scroll-driven animation, no JS): content is visible by default and must never depend on JS to appear.
 - 3D must never block LCP. Load it with `next/dynamic` (`ssr: false`) behind a lightweight poster.
 - Secrets are server-only (`ANTHROPIC_API_KEY`, `RESEND_API_KEY`, …). Never prefix them with `NEXT_PUBLIC_`.
 - Next 16 specifics: `params`/`searchParams` are async, `middleware` is renamed `proxy`, and lint runs through the ESLint CLI.
@@ -88,7 +89,7 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 
 - [x] 1. Audit & setup: scaffold, deps, configs, content schema, docs
 - [x] 2. Foundation: tokens, fonts, layout, navbar/footer, theme, Lenis, content files from resume
-- [ ] 3. Core sections (no 3D)
+- [x] 3. Core sections (no 3D)
 - [ ] 4. Signature features: Neural Core, role rotator, n8n → React Flow, terminal
 - [ ] 5. AI assistant + CV ranker on Claude
 - [ ] 6. Projects & research (Velite MDX)

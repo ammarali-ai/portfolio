@@ -18,8 +18,10 @@ export const domains: readonly Domain[] = [
       "Reporting that writes itself from live business data",
     ],
     related: [
-      { label: "Metaviz: Real-Time Monitoring & Alert System", href: "/#automation" },
-      { label: "n8n Automation Gallery", href: "/automations" },
+      { label: "Real-Time Monitoring & Alert System", href: "/#automation" },
+      { label: "Call Analyzer", href: "/#project-call-analyzer" },
+      { label: "AI Meeting Notes Bot", href: "/#project-meeting-notes-bot" },
+      // TODO (Phase 4): add { label: "n8n Automation Gallery", href: "/automations" }.
     ],
   },
   {
@@ -34,8 +36,9 @@ export const domains: readonly Domain[] = [
       "Lightweight models that can run on low-end phones",
     ],
     related: [
-      { label: "Rice Leaf Disease AI (92% accuracy)", href: "/projects/rice-leaf-disease" },
-      { label: "Cotton Crop Disease Detection (89%)", href: "/projects/cotton-crop-disease" },
+      // Phase 6: switch these anchors to /projects/<slug> case studies.
+      { label: "Rice Leaf Disease AI (92% accuracy)", href: "/#project-rice-leaf-disease" },
+      { label: "Cotton Crop Disease Detection (89%)", href: "/#project-cotton-crop-disease" },
     ],
   },
   {
@@ -52,7 +55,7 @@ export const domains: readonly Domain[] = [
     related: [
       { label: "Digital Forensics & Cybersecurity (NAVTTC)", href: "/#certifications" },
       { label: "Cisco AMP monitoring at Mindbridge", href: "/#experience" },
-      { label: "Fake News Detection (NLP)", href: "/projects/fake-news-detection" },
+      { label: "Fake News Detection (NLP)", href: "/#project-fake-news-detection" },
     ],
   },
   {

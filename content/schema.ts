@@ -120,6 +120,24 @@ export interface ProjectMeta {
   };
   /** Short separate line for potential applications (e.g. disaster management). */
   possibleApplications?: string;
+  /** Main processing steps, shown as a chain on large cards. */
+  flow?: readonly string[];
+}
+
+/** Heading copy for a homepage section. */
+export interface SectionCopy {
+  /** Small mono label above the title. */
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+/** One step of an automation pipeline (static list now, React Flow in Phase 4). */
+export interface PipelineStep {
+  id: string;
+  label: string;
+  detail: string;
+  kind: "trigger" | "logic" | "ai" | "output";
 }
 
 export type WorkflowCategoryId =

@@ -8,7 +8,7 @@ Personal portfolio of an AI / AI-Automation / ML engineer. It shows working AI r
 - an ML model playground
 - a terminal easter egg
 
-> **Status:** Phases 1–2 of 7 (setup, foundation) are done. See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
+> **Status:** Phases 1–3 of 7 (setup, foundation, core sections) are done. See [docs/PLAN.md](docs/PLAN.md) for the roadmap.
 > The v1 site (Gemini chat + admin panel) is preserved on `main` until v2 ships.
 
 ## Tech stack
