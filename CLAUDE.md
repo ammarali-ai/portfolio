@@ -98,7 +98,9 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 ## Environment notes
 
 - Develop in `C:\dev\my_portfolio`, a clone that lives outside OneDrive. OneDrive sync corrupted v1's `.git` and dropped files.
-  `OneDrive\Desktop\my_portfolio` is still that old, broken v1 copy. Don't work there.
+  `OneDriveDesktopmy_portfolio` is still that old, broken v1 copy. Don't work there.
+  `OneDriveDesktopmy_portfolio_v2` is a clean clone of `v2` (source only) for browsing in VS Code.
+  Refresh it with `git pull` (from GitHub) or `git pull dev v2` (from `C:devmy_portfolio`, works offline).
 - On this Windows machine Node may be missing from PATH in some shells. It lives in `C:\Program Files\nodejs`.
 - Git: work happens on branch `v2`; merge to `main` (the production branch) at Phase 7.
 
