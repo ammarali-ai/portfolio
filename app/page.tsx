@@ -1,69 +1,76 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, MapPin } from "lucide-react";
+import { profile } from "@/content/profile";
+import { buttonVariants } from "@/components/ui/button";
+
+// Phase 2 foundation preview. Phase 3 replaces this with the full section components.
+const upcoming = [
+  { id: "domains", title: "Research & Domains" },
+  { id: "projects", title: "Featured Projects" },
+  { id: "automation", title: "Live Automation" },
+  { id: "experience", title: "Experience" },
+  { id: "skills", title: "Tech Arsenal" },
+  { id: "certifications", title: "Certifications" },
+  { id: "contact", title: "Contact" },
+] as const;
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex w-full max-w-3xl flex-1 flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
-        <Image
-          className="h-5 w-[100px] dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <section className="container-page grid items-center gap-12 pt-16 pb-24 md:grid-cols-[1.4fr_1fr] md:pt-24">
+        <div>
+          {profile.availability && (
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-xs text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-brand" aria-hidden="true" />
+              {profile.availability}
+            </p>
+          )}
+          <h1 className="text-4xl font-bold sm:text-5xl lg:text-6xl">{profile.name}</h1>
+          <p className="mt-4 font-mono text-lg text-brand sm:text-xl">{profile.roles[0]}</p>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {profile.summary}
           </p>
+          <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+            <MapPin className="size-4" aria-hidden="true" /> {profile.location}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/#projects" className={buttonVariants({ size: "lg" })}>
+              View work <ArrowRight data-icon="inline-end" aria-hidden="true" />
+            </Link>
+            <Link href="/#contact" className={buttonVariants({ size: "lg", variant: "outline" })}>
+              Contact
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="bg-foreground text-background flex h-12 w-full items-center justify-center gap-2 rounded-full px-5 transition-colors hover:bg-[#383838] md:w-[158px] dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="h-[14px] w-4 dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="glow-border relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-border bg-card">
+          <Image
+            src={profile.photo.src}
+            alt={profile.photo.alt}
+            fill
+            priority
+            sizes="(min-width: 768px) 384px, 90vw"
+            className="object-cover object-[50%_30%]"
+          />
         </div>
-      </main>
-    </div>
+      </section>
+
+      {upcoming.map((s) => (
+        <section
+          key={s.id}
+          id={s.id}
+          aria-labelledby={`${s.id}-title`}
+          className="container-page py-12"
+        >
+          <div className="rounded-2xl border border-dashed border-border p-8">
+            <h2 id={`${s.id}-title`} className="text-2xl font-semibold">
+              {s.title}
+            </h2>
+            <p className="mt-2 font-mono text-sm text-muted-foreground">Coming in Phase 3</p>
+          </div>
+        </section>
+      ))}
+    </>
   );
 }

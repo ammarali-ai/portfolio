@@ -87,7 +87,7 @@ Every phase must end with `lint`, `typecheck` and `build` all clean.
 ## Phase status
 
 - [x] 1. Audit & setup: scaffold, deps, configs, content schema, docs
-- [ ] 2. Foundation: tokens, fonts, layout, navbar/footer, theme, Lenis, content files from resume
+- [x] 2. Foundation: tokens, fonts, layout, navbar/footer, theme, Lenis, content files from resume
 - [ ] 3. Core sections (no 3D)
 - [ ] 4. Signature features: Neural Core, role rotator, n8n → React Flow, terminal
 - [ ] 5. AI assistant + CV ranker on Claude

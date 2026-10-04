@@ -27,8 +27,17 @@ export interface Profile {
   email: string;
   links: { github: string; linkedin: string };
   summary: string;
+  /** Short availability badge in the hero; null hides it. */
+  availability: string | null;
   photo: { src: string; alt: string };
-  resumeUrl: string;
+  /** Public path of the CV PDF; null hides every "Download CV" button. */
+  resumeUrl: string | null;
+}
+
+export interface NavItem {
+  label: string;
+  /** In-page anchors use "/#id" so they also work from other routes. */
+  href: string;
 }
 
 export interface Stat {
